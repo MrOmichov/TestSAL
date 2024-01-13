@@ -14,7 +14,7 @@ public class Main {
             System.out.println("i = " + i);
             String fileName = "example.sal";
             final String classFileName = fileName.substring(0, fileName.length() - 3) + "class";
-            System.out.println(classFileName);
+            System.out.println();
         }
     }
 }

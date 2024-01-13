@@ -45,14 +45,18 @@ public class salTreeWalkerListener extends salBaseListener {
     public void exitPrint(salParser.PrintContext ctx) {
         final TerminalNode varName = ctx.ID();
         final boolean VarToPrintNotDeclared = !vars.containsKey(varName.getText());
+        int numberOfNewlines = 0;                                                   // Количество "нс" (слово для переноса строки) у команды "вывод"
         if (VarToPrintNotDeclared) {
             final String errorFormat = "Ошибка: попытка вывести необъявленную переменную '%s'\n";
             System.out.printf(errorFormat, varName.getText());
             return;
         }
         final Variable var = vars.get(varName.getText());
-        instructionQueue.add(new PrintDeclaration(var));
-        logPrintDeclarationStatementFound(varName, var);
+        if (!ctx.NEXTLINE().isEmpty()) {
+            numberOfNewlines = ctx.NEXTLINE().size();
+        }
+        instructionQueue.add(new PrintDeclaration(var, numberOfNewlines));
+        logPrintDeclarationStatementFound(varName, var, numberOfNewlines);
     }
 
     private boolean checkingForTypeCompliance(String varType, int varValueType) {
@@ -67,10 +71,10 @@ public class salTreeWalkerListener extends salBaseListener {
         System.out.printf(format, varName.getText(), var.getValue(), line);
     }
 
-    private void logPrintDeclarationStatementFound(TerminalNode varName, Variable var) {
+    private void logPrintDeclarationStatementFound(TerminalNode varName, Variable var, int numberOfNewlines) {
         final int line = varName.getSymbol().getLine();
-        final String format = "Успех: вывод переменной '%s' со значением '%s' был задан в строке '%s'\n";
-        System.out.printf(format, varName.getText(), var.getValue(), line);
+        final String format = "Успех: вывод переменной '%s' со значением '%s' был задан в строке '%s'. Количество переносов строки: %d.\n";
+        System.out.printf(format, varName.getText(), var.getValue(), line, numberOfNewlines);
     }
 
 }

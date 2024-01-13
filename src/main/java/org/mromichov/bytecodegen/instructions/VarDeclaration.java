@@ -19,7 +19,7 @@ public class VarDeclaration implements Instruction {
         if (type == NUMBER) {
             int val = Integer.parseInt(var.getValue());
             if (val >= -1 && val <= 5) {
-                final int opcode = 3 + val; // ICONST_M1 = 2 ... ICONST_5 = 8
+                final int opcode = 3 + val; // ICONST_M1 = 2 ... ICONST_5 = 8 => команда = 3 + число
                 mv.visitInsn(opcode);
             } else if (val >= Byte.MIN_VALUE && val <= Byte.MAX_VALUE) {
                 mv.visitIntInsn(BIPUSH, val);
