@@ -6,7 +6,7 @@ import org.mromichov.antlr.salParser;
 import org.mromichov.bytecodegen.instructions.Instruction;
 import org.mromichov.bytecodegen.instructions.PrintDeclaration;
 import org.mromichov.bytecodegen.instructions.VarDeclaration;
-import org.mromichov.parsing.domain.Variable;
+import org.mromichov.domain.Variable;
 
 import java.util.ArrayDeque;
 import java.util.HashMap;
@@ -57,6 +57,10 @@ public class salTreeWalkerListener extends salBaseListener {
         }
         instructionQueue.add(new PrintDeclaration(var, numberOfNewlines));
         logPrintDeclarationStatementFound(varName, var, numberOfNewlines);
+    }
+
+    @Override
+    public void exitExpression(salParser.ExpressionContext ctx) {
     }
 
     private boolean checkingForTypeCompliance(String varType, int varValueType) {

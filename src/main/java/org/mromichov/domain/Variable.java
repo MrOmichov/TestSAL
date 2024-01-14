@@ -1,4 +1,4 @@
-package org.mromichov.parsing.domain;
+package org.mromichov.domain;
 
 public class Variable {
     private int id;

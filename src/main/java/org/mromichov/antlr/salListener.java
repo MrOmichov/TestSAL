@@ -1,4 +1,4 @@
-// Generated from C:/TestSAL/src/main/java/org/mromichov/antlr/sal.g4 by ANTLR 4.13.1
+// Generated from D:/IdeaProjects/TestSAL/src/main/java/org/mromichov/antlr/sal.g4 by ANTLR 4.13.1
 package org.mromichov.antlr;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -18,25 +18,95 @@ public interface salListener extends ParseTreeListener {
 	 */
 	void exitStart(salParser.StartContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link salParser#assignment}.
+	 * Enter a parse tree produced by {@link salParser#algorithm}.
 	 * @param ctx the parse tree
 	 */
-	void enterAssignment(salParser.AssignmentContext ctx);
+	void enterAlgorithm(salParser.AlgorithmContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link salParser#assignment}.
+	 * Exit a parse tree produced by {@link salParser#algorithm}.
 	 * @param ctx the parse tree
 	 */
-	void exitAssignment(salParser.AssignmentContext ctx);
+	void exitAlgorithm(salParser.AlgorithmContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link salParser#print}.
+	 * Enter a parse tree produced by {@link salParser#algorithmDeclaration}.
 	 * @param ctx the parse tree
 	 */
-	void enterPrint(salParser.PrintContext ctx);
+	void enterAlgorithmDeclaration(salParser.AlgorithmDeclarationContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link salParser#print}.
+	 * Exit a parse tree produced by {@link salParser#algorithmDeclaration}.
 	 * @param ctx the parse tree
 	 */
-	void exitPrint(salParser.PrintContext ctx);
+	void exitAlgorithmDeclaration(salParser.AlgorithmDeclarationContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link salParser#algorithmName}.
+	 * @param ctx the parse tree
+	 */
+	void enterAlgorithmName(salParser.AlgorithmNameContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link salParser#algorithmName}.
+	 * @param ctx the parse tree
+	 */
+	void exitAlgorithmName(salParser.AlgorithmNameContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link salParser#algorithmArgument}.
+	 * @param ctx the parse tree
+	 */
+	void enterAlgorithmArgument(salParser.AlgorithmArgumentContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link salParser#algorithmArgument}.
+	 * @param ctx the parse tree
+	 */
+	void exitAlgorithmArgument(salParser.AlgorithmArgumentContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link salParser#blockStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterBlockStatement(salParser.BlockStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link salParser#blockStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitBlockStatement(salParser.BlockStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link salParser#variableDeclaration}.
+	 * @param ctx the parse tree
+	 */
+	void enterVariableDeclaration(salParser.VariableDeclarationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link salParser#variableDeclaration}.
+	 * @param ctx the parse tree
+	 */
+	void exitVariableDeclaration(salParser.VariableDeclarationContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link salParser#printStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrintStatement(salParser.PrintStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link salParser#printStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrintStatement(salParser.PrintStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link salParser#algorithmCall}.
+	 * @param ctx the parse tree
+	 */
+	void enterAlgorithmCall(salParser.AlgorithmCallContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link salParser#algorithmCall}.
+	 * @param ctx the parse tree
+	 */
+	void exitAlgorithmCall(salParser.AlgorithmCallContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link salParser#expressionList}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpressionList(salParser.ExpressionListContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link salParser#expressionList}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpressionList(salParser.ExpressionListContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link salParser#expression}.
 	 * @param ctx the parse tree
@@ -48,25 +118,25 @@ public interface salListener extends ParseTreeListener {
 	 */
 	void exitExpression(salParser.ExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link salParser#term}.
+	 * Enter a parse tree produced by {@link salParser#name}.
 	 * @param ctx the parse tree
 	 */
-	void enterTerm(salParser.TermContext ctx);
+	void enterName(salParser.NameContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link salParser#term}.
+	 * Exit a parse tree produced by {@link salParser#name}.
 	 * @param ctx the parse tree
 	 */
-	void exitTerm(salParser.TermContext ctx);
+	void exitName(salParser.NameContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link salParser#atom}.
+	 * Enter a parse tree produced by {@link salParser#varReference}.
 	 * @param ctx the parse tree
 	 */
-	void enterAtom(salParser.AtomContext ctx);
+	void enterVarReference(salParser.VarReferenceContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link salParser#atom}.
+	 * Exit a parse tree produced by {@link salParser#varReference}.
 	 * @param ctx the parse tree
 	 */
-	void exitAtom(salParser.AtomContext ctx);
+	void exitVarReference(salParser.VarReferenceContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link salParser#value}.
 	 * @param ctx the parse tree

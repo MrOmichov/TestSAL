@@ -1,6 +1,6 @@
 package org.mromichov.bytecodegen.instructions;
 
-import org.mromichov.parsing.domain.Variable;
+import org.mromichov.domain.Variable;
 import org.objectweb.asm.MethodVisitor;
 
 import static org.mromichov.antlr.salLexer.*;
