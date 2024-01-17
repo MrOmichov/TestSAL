@@ -1,4 +1,4 @@
-// Generated from D:/IdeaProjects/TestSAL/src/main/java/org/mromichov/antlr/sal.g4 by ANTLR 4.13.1
+// Generated from C:/TestSAL/src/main/java/org/mromichov/antlr/sal.g4 by ANTLR 4.13.1
 package org.mromichov.antlr;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -817,36 +817,165 @@ public class salParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ExpressionContext extends ParserRuleContext {
-		public VarReferenceContext varReference() {
-			return getRuleContext(VarReferenceContext.class,0);
+		public ExpressionContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
 		}
-		public ValueContext value() {
-			return getRuleContext(ValueContext.class,0);
+		@Override public int getRuleIndex() { return RULE_expression; }
+	 
+		public ExpressionContext() { }
+		public void copyFrom(ExpressionContext ctx) {
+			super.copyFrom(ctx);
 		}
-		public AlgorithmCallContext algorithmCall() {
-			return getRuleContext(AlgorithmCallContext.class,0);
-		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class ADDContext extends ExpressionContext {
 		public List<ExpressionContext> expression() {
 			return getRuleContexts(ExpressionContext.class);
 		}
 		public ExpressionContext expression(int i) {
 			return getRuleContext(ExpressionContext.class,i);
 		}
-		public ExpressionContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_expression; }
+		public ADDContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof salListener ) ((salListener)listener).enterExpression(this);
+			if ( listener instanceof salListener ) ((salListener)listener).enterADD(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof salListener ) ((salListener)listener).exitExpression(this);
+			if ( listener instanceof salListener ) ((salListener)listener).exitADD(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof salVisitor ) return ((salVisitor<? extends T>)visitor).visitExpression(this);
+			if ( visitor instanceof salVisitor ) return ((salVisitor<? extends T>)visitor).visitADD(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class SUBSTRACTContext extends ExpressionContext {
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public SUBSTRACTContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof salListener ) ((salListener)listener).enterSUBSTRACT(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof salListener ) ((salListener)listener).exitSUBSTRACT(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof salVisitor ) return ((salVisitor<? extends T>)visitor).visitSUBSTRACT(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class FUNCALLContext extends ExpressionContext {
+		public AlgorithmCallContext algorithmCall() {
+			return getRuleContext(AlgorithmCallContext.class,0);
+		}
+		public FUNCALLContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof salListener ) ((salListener)listener).enterFUNCALL(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof salListener ) ((salListener)listener).exitFUNCALL(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof salVisitor ) return ((salVisitor<? extends T>)visitor).visitFUNCALL(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class MULTIPLYContext extends ExpressionContext {
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public MULTIPLYContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof salListener ) ((salListener)listener).enterMULTIPLY(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof salListener ) ((salListener)listener).exitMULTIPLY(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof salVisitor ) return ((salVisitor<? extends T>)visitor).visitMULTIPLY(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class VALUEContext extends ExpressionContext {
+		public ValueContext value() {
+			return getRuleContext(ValueContext.class,0);
+		}
+		public VALUEContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof salListener ) ((salListener)listener).enterVALUE(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof salListener ) ((salListener)listener).exitVALUE(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof salVisitor ) return ((salVisitor<? extends T>)visitor).visitVALUE(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class VARREFERENCEContext extends ExpressionContext {
+		public VarReferenceContext varReference() {
+			return getRuleContext(VarReferenceContext.class,0);
+		}
+		public VARREFERENCEContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof salListener ) ((salListener)listener).enterVARREFERENCE(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof salListener ) ((salListener)listener).exitVARREFERENCE(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof salVisitor ) return ((salVisitor<? extends T>)visitor).visitVARREFERENCE(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class DIVIDEContext extends ExpressionContext {
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public DIVIDEContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof salListener ) ((salListener)listener).enterDIVIDE(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof salListener ) ((salListener)listener).exitDIVIDE(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof salVisitor ) return ((salVisitor<? extends T>)visitor).visitDIVIDE(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -871,24 +1000,37 @@ public class salParser extends Parser {
 			switch ( getInterpreter().adaptivePredict(_input,12,_ctx) ) {
 			case 1:
 				{
+				_localctx = new VARREFERENCEContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+
 				setState(122);
 				varReference();
 				}
 				break;
 			case 2:
 				{
+				_localctx = new VALUEContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
 				setState(123);
 				value();
 				}
 				break;
 			case 3:
 				{
+				_localctx = new FUNCALLContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
 				setState(124);
 				algorithmCall();
 				}
 				break;
 			case 4:
 				{
+				_localctx = new MULTIPLYContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
 				setState(125);
 				match(T__3);
 				setState(126);
@@ -903,6 +1045,9 @@ public class salParser extends Parser {
 				break;
 			case 5:
 				{
+				_localctx = new DIVIDEContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
 				setState(131);
 				match(T__3);
 				setState(132);
@@ -917,6 +1062,9 @@ public class salParser extends Parser {
 				break;
 			case 6:
 				{
+				_localctx = new ADDContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
 				setState(137);
 				match(T__3);
 				setState(138);
@@ -931,6 +1079,9 @@ public class salParser extends Parser {
 				break;
 			case 7:
 				{
+				_localctx = new SUBSTRACTContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
 				setState(143);
 				match(T__3);
 				setState(144);
@@ -958,7 +1109,7 @@ public class salParser extends Parser {
 					switch ( getInterpreter().adaptivePredict(_input,13,_ctx) ) {
 					case 1:
 						{
-						_localctx = new ExpressionContext(_parentctx, _parentState);
+						_localctx = new MULTIPLYContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(151);
 						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
@@ -970,7 +1121,7 @@ public class salParser extends Parser {
 						break;
 					case 2:
 						{
-						_localctx = new ExpressionContext(_parentctx, _parentState);
+						_localctx = new DIVIDEContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(154);
 						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
@@ -982,7 +1133,7 @@ public class salParser extends Parser {
 						break;
 					case 3:
 						{
-						_localctx = new ExpressionContext(_parentctx, _parentState);
+						_localctx = new ADDContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(157);
 						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
@@ -994,7 +1145,7 @@ public class salParser extends Parser {
 						break;
 					case 4:
 						{
-						_localctx = new ExpressionContext(_parentctx, _parentState);
+						_localctx = new SUBSTRACTContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(160);
 						if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");

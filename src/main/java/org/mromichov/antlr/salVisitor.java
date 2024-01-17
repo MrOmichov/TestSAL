@@ -1,4 +1,4 @@
-// Generated from D:/IdeaProjects/TestSAL/src/main/java/org/mromichov/antlr/sal.g4 by ANTLR 4.13.1
+// Generated from C:/TestSAL/src/main/java/org/mromichov/antlr/sal.g4 by ANTLR 4.13.1
 package org.mromichov.antlr;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -71,11 +71,54 @@ public interface salVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpressionList(salParser.ExpressionListContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link salParser#expression}.
+	 * Visit a parse tree produced by the {@code ADD}
+	 * labeled alternative in {@link salParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpression(salParser.ExpressionContext ctx);
+	T visitADD(salParser.ADDContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SUBSTRACT}
+	 * labeled alternative in {@link salParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSUBSTRACT(salParser.SUBSTRACTContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code FUNCALL}
+	 * labeled alternative in {@link salParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFUNCALL(salParser.FUNCALLContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code MULTIPLY}
+	 * labeled alternative in {@link salParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMULTIPLY(salParser.MULTIPLYContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code VALUE}
+	 * labeled alternative in {@link salParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVALUE(salParser.VALUEContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code VARREFERENCE}
+	 * labeled alternative in {@link salParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVARREFERENCE(salParser.VARREFERENCEContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code DIVIDE}
+	 * labeled alternative in {@link salParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDIVIDE(salParser.DIVIDEContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link salParser#name}.
 	 * @param ctx the parse tree

@@ -7,7 +7,8 @@ import org.antlr.v4.runtime.Recognizer;
 public class salErrorTreeWalkerListener extends BaseErrorListener {
     @Override
     public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
-        final String errorFormat = "Ошибка в строке %d, символ %d. Подробнее\n%s";
-        final String errorMessage = String.format(errorFormat, line, charPositionInLine, msg);
+        final String errorFormat = "Ошибка в строке %d, символе %d. Подробнее: %n%s";
+        final String errorMsg = String.format(errorFormat, line, charPositionInLine, msg);
+        System.out.println(errorMsg);
     }
 }

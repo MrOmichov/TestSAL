@@ -15,17 +15,17 @@ algorithmCall          :       algorithmName ('(' expressionList ')')*        ;
 
 expressionList : expression (',' expression)* ;
 expression :
-            varReference
-           | value
-           | algorithmCall
-           |  '('expression '*' expression')'
-           | expression '*' expression
-           | '(' expression '/' expression ')'
-           | expression '/' expression
-           | '(' expression '+' expression ')'
-           | expression '+' expression
-           | '(' expression '-' expression ')'
-           | expression '-' expression
+            varReference #VARREFERENCE
+           | value        #VALUE
+           | algorithmCall #FUNCALL
+           |  '('expression '*' expression')' #MULTIPLY
+           | expression '*' expression  #MULTIPLY
+           | '(' expression '/' expression ')' #DIVIDE
+           | expression '/' expression #DIVIDE
+           | '(' expression '+' expression ')' #ADD
+           | expression '+' expression #ADD
+           | '(' expression '-' expression ')' #SUBSTRACT
+           | expression '-' expression #SUBSTRACT
            ;
 name       : ID ;
 varReference : ID ;

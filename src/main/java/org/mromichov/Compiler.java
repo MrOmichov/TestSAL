@@ -1,9 +1,12 @@
 package org.mromichov;
 
 import org.abego.treelayout.internal.util.java.lang.string.StringUtil;
+import org.apache.commons.io.IOUtils;
 import org.mromichov.bytecodegen.BytecodeGenerator;
 import org.mromichov.bytecodegen.instructions.Instruction;
-import org.mromichov.parsing.SyntaxTreeTraverser;
+import org.mromichov.exception.CompilationException;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.Queue;
@@ -11,43 +14,47 @@ import java.util.concurrent.SynchronousQueue;
 
 public class Compiler {
 
-    public static void main(String[] args) throws IOException {
-        new Compiler().compile(args);
-    }
+    //private static final Logger LOGGER = LoggerFactory.getLogger(Compiler.class);
 
-    private void compile(String[] args) throws IOException {
-        final ARGS_ERRORS argsErrors = getArgsError(args);
-
-        // Если есть ошибка
-        if (argsErrors != ARGS_ERRORS.NONE) {
-            System.out.println(argsErrors.getMessage());
-            return;
-        }
-
-        final File salFile = new File(args[0]);
-        final String fileName = salFile.getName();
-        final String fileAbsPath = salFile.getAbsolutePath();
-        final String className = fileName.substring(0,fileName.length() - 4); // Название класса
-        final Queue<Instruction> instructionQueue = new SyntaxTreeTraverser().getInstructions(fileAbsPath);
-        final byte[] bytecode = new BytecodeGenerator().generateBytecode(instructionQueue, className);
-        saveBytecodeToClassFile(fileName, bytecode);
-    }
-
-    private ARGS_ERRORS getArgsError(String[] args) {
-            if (args.length != 1) return ARGS_ERRORS.NO_FILE; // Если не указан файл в аргументах
-            final String filePath = args[0];
-            if (!filePath.endsWith(".sal")) return ARGS_ERRORS.BAD_FILE_EXTENSION;
-            else return ARGS_ERRORS.NONE;
-    }
-
-    private static void saveBytecodeToClassFile(String fileName, byte[] bytecode) throws IOException {
-        final String classFileName = fileName.substring(0, fileName.length() - 3) + "class"; // .class файл с тем же названием
+    public static void main(String[] args) throws Exception {
         try {
-            OutputStream os = new FileOutputStream(classFileName);
-            os.write(bytecode);
-            os.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            new Compiler().compile(args);
+        } catch (CompilationException exception) {
+            System.out.println(exception.getClass().getName() + exception.getMessage());
         }
+    }
+
+    public void compile(String[] args) throws Exception {
+        /*ARGS_ERRORS argumentsErrors = getArgumentValidationErrors(args);
+        if (argumentsErrors != ARGS_ERRORS.NONE) {
+            String errorMessage = argumentsErrors.getMessage();
+            //LOGGER.error(errorMessage);
+            System.out.println(errorMessage);
+            return;
+        }*/
+        //File salFile = new File(args[0]);
+        //String fileAbsolutePath = salFile.getAbsolutePath();
+        Global global = new Parser().getGlobal("C:/TestSAL/out/artifacts/sal_jar/example.sal");
+        saveBytecodeToClassFile(global);
+    }
+
+    private ARGS_ERRORS getArgumentValidationErrors(String[] args) {
+        if (args.length != 1) {
+            return ARGS_ERRORS.NO_FILE;
+        }
+        String filePath = args[0];
+        if (!filePath.endsWith(".sal")) {
+            return ARGS_ERRORS.BAD_FILE_EXTENSION;
+        }
+        return ARGS_ERRORS.NONE;
+    }
+
+    private void saveBytecodeToClassFile(Global global) throws IOException {
+        BytecodeGenerator bytecodeGenerator = new BytecodeGenerator();
+        byte[] bytecode = bytecodeGenerator.generate(global);
+        String className = "example";
+        String fileName = className + ".class";
+        OutputStream os = new FileOutputStream(fileName);
+        IOUtils.write(bytecode, os);
     }
 }
