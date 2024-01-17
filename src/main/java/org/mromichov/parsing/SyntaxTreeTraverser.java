@@ -8,18 +8,16 @@ import org.mromichov.antlr.salParser;
 import org.mromichov.bytecodegen.instructions.Instruction;
 
 import java.io.IOException;
+import java.util.Deque;
 import java.util.Queue;
 
 public class SyntaxTreeTraverser {
-    public Queue<Instruction> getInstructions(String fileAbsPath) throws IOException {
+    public void getInstructions(String fileAbsPath) throws IOException {
         CharStream input = CharStreams.fromFileName(fileAbsPath);
         salLexer lexer = new salLexer(input);
         salParser parser = new salParser(new CommonTokenStream(lexer));
-        salTreeWalkerListener listener = new salTreeWalkerListener();
-        salErrorTreeWalkerListener errorListener = new salErrorTreeWalkerListener();
-        parser.addParseListener(listener);
+                salErrorTreeWalkerListener errorListener = new salErrorTreeWalkerListener();
         parser.addErrorListener(errorListener);
         parser.start();
-        return listener.getInstructionQueue();
     }
 }

@@ -28,9 +28,9 @@ public class Compiler {
         final String fileName = salFile.getName();
         final String fileAbsPath = salFile.getAbsolutePath();
         final String className = fileName.substring(0,fileName.length() - 4); // Название класса
-        final Queue<Instruction> instructionQueue = new SyntaxTreeTraverser().getInstructions(fileAbsPath);
-        final byte[] bytecode = new BytecodeGenerator().generateBytecode(instructionQueue, className);
-        saveBytecodeToClassFile(fileName, bytecode);
+        //final Queue<Instruction> instructionQueue = new SyntaxTreeTraverser().getInstructions(fileAbsPath);
+        //final byte[] bytecode = new BytecodeGenerator().generateBytecode(instructionQueue, className);
+        //saveBytecodeToClassFile(fileName, bytecode);
     }
 
     private ARGS_ERRORS getArgsError(String[] args) {
