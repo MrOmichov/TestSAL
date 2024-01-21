@@ -8,6 +8,7 @@
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/ow2/asm/asm/9.6/asm-9.6.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/antlr/antlr4/4.13.1/antlr4-4.13.1.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/ibm/icu/icu4j/72.1/icu4j-72.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-lang3/3.14.0/commons-lang3-3.14.0.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

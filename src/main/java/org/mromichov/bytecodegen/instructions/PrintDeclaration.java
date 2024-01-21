@@ -1,6 +1,7 @@
 package org.mromichov.bytecodegen.instructions;
 
 import org.mromichov.parsing.domain.Variable;
+import org.mromichov.type.Type;
 import org.objectweb.asm.MethodVisitor;
 
 import static org.mromichov.antlr.salLexer.NUMBER;
@@ -20,16 +21,15 @@ public class PrintDeclaration implements Instruction {
 
     @Override
     public void apply(MethodVisitor mv) {
-        final int type = var.getType();
-        final int id = var.getId();
+        final Type type = var.getType();
+        final int index = var.getIndex();
         mv.visitFieldInsn(GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;"); // байткод на подключение класса PrintStream
-        if (type == NUMBER) {
-            mv.visitVarInsn(ILOAD, id); // кладём переменную на стек
-            mv.visitMethodInsn(INVOKEVIRTUAL, "java/io/PrintStream", "print", "(I)V", false); // байткод на включение метода print
-        } else if (type == STRING) {
-            mv.visitVarInsn(ALOAD, id); // кладём переменную на стек
-            mv.visitMethodInsn(INVOKEVIRTUAL, "java/io/PrintStream", "print", "(Ljava/lang/String;)V", false); // байткод на включение метода print
+        if (type == Type.INT) {
+            mv.visitVarInsn(ILOAD, index); // кладём переменную на стек
+        } else if (type == Type.STRING) {
+            mv.visitVarInsn(ALOAD, index); // кладём переменную на стек
         }
+        mv.visitMethodInsn(INVOKEVIRTUAL, "java/io/PrintStream", "print", "(" + type.getDescriptor() + ")V", false); // байткод на включение метода print
         if (numberOfNewlines != 0) {
             for (int i = 0; i < numberOfNewlines; i++) {
                 mv.visitFieldInsn(GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;"); // байткод на подключение класса PrintStream

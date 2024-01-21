@@ -1,13 +1,11 @@
 package org.mromichov;
 
-import org.abego.treelayout.internal.util.java.lang.string.StringUtil;
 import org.mromichov.bytecodegen.BytecodeGenerator;
 import org.mromichov.bytecodegen.instructions.Instruction;
 import org.mromichov.parsing.SyntaxTreeTraverser;
 
 import java.io.*;
 import java.util.Queue;
-import java.util.concurrent.SynchronousQueue;
 
 public class Compiler {
 

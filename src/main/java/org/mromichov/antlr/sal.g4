@@ -2,8 +2,9 @@ grammar sal;
 
 start       :       ( assignment | print )* EOF;
 
-assignment  :       TYPE ID ASSIGN value        ;
-print       :       PRINT ID (',' NEXTLINE)*          ;
+assignment  :       TYPE ID ASSIGN expression        ;
+print       :       PRINT ID (',' NEXTLINE)*         ;
+
 expression  :       t1=term
             (   '+' t2=term
             |   '-' t2=term)*

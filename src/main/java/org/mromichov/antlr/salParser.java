@@ -1,4 +1,4 @@
-// Generated from C:/TestSAL/src/main/java/org/mromichov/antlr/sal.g4 by ANTLR 4.13.1
+// Generated from D:/IdeaProjects/TestSAL/src/main/java/org/mromichov/antlr/sal.g4 by ANTLR 4.13.1
 package org.mromichov.antlr;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -182,8 +182,8 @@ public class salParser extends Parser {
 		public TerminalNode TYPE() { return getToken(salParser.TYPE, 0); }
 		public TerminalNode ID() { return getToken(salParser.ID, 0); }
 		public TerminalNode ASSIGN() { return getToken(salParser.ASSIGN, 0); }
-		public ValueContext value() {
-			return getRuleContext(ValueContext.class,0);
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
 		}
 		public AssignmentContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -217,7 +217,7 @@ public class salParser extends Parser {
 			setState(25);
 			match(ASSIGN);
 			setState(26);
-			value();
+			expression();
 			}
 		}
 		catch (RecognitionException re) {
@@ -608,24 +608,24 @@ public class salParser extends Parser {
 		"\u0000\u0014\u0012\u0001\u0000\u0000\u0000\u0015\u0016\u0005\u0000\u0000"+
 		"\u0001\u0016\u0001\u0001\u0000\u0000\u0000\u0017\u0018\u0005\b\u0000\u0000"+
 		"\u0018\u0019\u0005\u000b\u0000\u0000\u0019\u001a\u0005\f\u0000\u0000\u001a"+
-		"\u001b\u0003\f\u0006\u0000\u001b\u0003\u0001\u0000\u0000\u0000\u001c\u001d"+
-		"\u0005\t\u0000\u0000\u001d\"\u0005\u000b\u0000\u0000\u001e\u001f\u0005"+
-		"\u0001\u0000\u0000\u001f!\u0005\n\u0000\u0000 \u001e\u0001\u0000\u0000"+
-		"\u0000!$\u0001\u0000\u0000\u0000\" \u0001\u0000\u0000\u0000\"#\u0001\u0000"+
-		"\u0000\u0000#\u0005\u0001\u0000\u0000\u0000$\"\u0001\u0000\u0000\u0000"+
-		"%,\u0003\b\u0004\u0000&\'\u0005\u0002\u0000\u0000\'+\u0003\b\u0004\u0000"+
-		"()\u0005\u0003\u0000\u0000)+\u0003\b\u0004\u0000*&\u0001\u0000\u0000\u0000"+
-		"*(\u0001\u0000\u0000\u0000+.\u0001\u0000\u0000\u0000,*\u0001\u0000\u0000"+
-		"\u0000,-\u0001\u0000\u0000\u0000-\u0007\u0001\u0000\u0000\u0000.,\u0001"+
-		"\u0000\u0000\u0000/6\u0003\n\u0005\u000001\u0005\u0004\u0000\u000015\u0003"+
-		"\n\u0005\u000023\u0005\u0005\u0000\u000035\u0003\n\u0005\u000040\u0001"+
-		"\u0000\u0000\u000042\u0001\u0000\u0000\u000058\u0001\u0000\u0000\u0000"+
-		"64\u0001\u0000\u0000\u000067\u0001\u0000\u0000\u00007\t\u0001\u0000\u0000"+
-		"\u000086\u0001\u0000\u0000\u00009?\u0003\f\u0006\u0000:;\u0005\u0006\u0000"+
-		"\u0000;<\u0003\u0006\u0003\u0000<=\u0005\u0007\u0000\u0000=?\u0001\u0000"+
-		"\u0000\u0000>9\u0001\u0000\u0000\u0000>:\u0001\u0000\u0000\u0000?\u000b"+
-		"\u0001\u0000\u0000\u0000@A\u0007\u0000\u0000\u0000A\r\u0001\u0000\u0000"+
-		"\u0000\b\u0010\u0012\"*,46>";
+		"\u001b\u0003\u0006\u0003\u0000\u001b\u0003\u0001\u0000\u0000\u0000\u001c"+
+		"\u001d\u0005\t\u0000\u0000\u001d\"\u0005\u000b\u0000\u0000\u001e\u001f"+
+		"\u0005\u0001\u0000\u0000\u001f!\u0005\n\u0000\u0000 \u001e\u0001\u0000"+
+		"\u0000\u0000!$\u0001\u0000\u0000\u0000\" \u0001\u0000\u0000\u0000\"#\u0001"+
+		"\u0000\u0000\u0000#\u0005\u0001\u0000\u0000\u0000$\"\u0001\u0000\u0000"+
+		"\u0000%,\u0003\b\u0004\u0000&\'\u0005\u0002\u0000\u0000\'+\u0003\b\u0004"+
+		"\u0000()\u0005\u0003\u0000\u0000)+\u0003\b\u0004\u0000*&\u0001\u0000\u0000"+
+		"\u0000*(\u0001\u0000\u0000\u0000+.\u0001\u0000\u0000\u0000,*\u0001\u0000"+
+		"\u0000\u0000,-\u0001\u0000\u0000\u0000-\u0007\u0001\u0000\u0000\u0000"+
+		".,\u0001\u0000\u0000\u0000/6\u0003\n\u0005\u000001\u0005\u0004\u0000\u0000"+
+		"15\u0003\n\u0005\u000023\u0005\u0005\u0000\u000035\u0003\n\u0005\u0000"+
+		"40\u0001\u0000\u0000\u000042\u0001\u0000\u0000\u000058\u0001\u0000\u0000"+
+		"\u000064\u0001\u0000\u0000\u000067\u0001\u0000\u0000\u00007\t\u0001\u0000"+
+		"\u0000\u000086\u0001\u0000\u0000\u00009?\u0003\f\u0006\u0000:;\u0005\u0006"+
+		"\u0000\u0000;<\u0003\u0006\u0003\u0000<=\u0005\u0007\u0000\u0000=?\u0001"+
+		"\u0000\u0000\u0000>9\u0001\u0000\u0000\u0000>:\u0001\u0000\u0000\u0000"+
+		"?\u000b\u0001\u0000\u0000\u0000@A\u0007\u0000\u0000\u0000A\r\u0001\u0000"+
+		"\u0000\u0000\b\u0010\u0012\"*,46>";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

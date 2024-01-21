@@ -21,25 +21,25 @@ public class salTreeWalkerListener extends salBaseListener {
         return instructionQueue;
     }
 
-    @Override
-    public void exitAssignment(salParser.AssignmentContext ctx) {
-        final TerminalNode varName = ctx.ID();                      // Имя переменной
-        final String varType = ctx.TYPE().getText();                // Объявленный тип переменной
-        final salParser.ValueContext varValue = ctx.value();        // Значение переменной
-        final int varValueType = varValue.getStart().getType();     // Тип значения переменной
-        final boolean badDeclaredVarType = checkingForTypeCompliance(varType, varValueType);
-        if (badDeclaredVarType) {
-            final String errorFormat = "Ошибка: попытка присвоить неверное значение '%s' переменной '%s'\n";
-            System.out.printf(errorFormat, varValue.getText(), varName.getText());
-            return;
-        }
-        final int varIndex = vars.size();                           // Порядковый номер (индекс) переменной
-        final String varTextValue = varValue.getText();             // Значение переменной в текстовом представлении
-        Variable var = new Variable(varIndex, varValueType, varTextValue);
-        vars.put(varName.getText(), var);
-        instructionQueue.add(new VarDeclaration(var));
-        logVarDeclarationStatementFound(varName, var);
-    }
+//    @Override
+//    public void exitAssignment(salParser.AssignmentContext ctx) {
+//        final TerminalNode varName = ctx.ID();                      // Имя переменной
+//        final String varType = ctx.TYPE().getText();                // Объявленный тип переменной
+//        final salParser.ValueContext varValue = ctx.value();        // Значение переменной
+//        final int varValueType = varValue.getStart().getType();     // Тип значения переменной
+//        final boolean badDeclaredVarType = checkingForTypeCompliance(varType, varValueType);
+//        if (badDeclaredVarType) {
+//            final String errorFormat = "Ошибка: попытка присвоить неверное значение '%s' переменной '%s'\n";
+//            System.out.printf(errorFormat, varValue.getText(), varName.getText());
+//            return;
+//        }
+//        final int varIndex = vars.size();                           // Порядковый номер (индекс) переменной
+//        final String varTextValue = varValue.getText();             // Значение переменной в текстовом представлении
+//        Variable var = new Variable(varIndex, varValueType, varTextValue);
+//        vars.put(varName.getText(), var);
+//        instructionQueue.add(new VarDeclaration(var));
+//        logVarDeclarationStatementFound(varName, var);
+//    }
 
     @Override
     public void exitPrint(salParser.PrintContext ctx) {

@@ -17,7 +17,6 @@ public class BytecodeGenerator {
         cw.visit(V1_8, ACC_PUBLIC, name, null, "java/lang/Object", null);
         {
             mv = cw.visitMethod(ACC_PUBLIC + ACC_STATIC, "main", "([Ljava/lang/String;)V", null, null); // public static void main
-            final long localVarsCount = instructionQueue.stream().filter(instruction -> instruction instanceof VarDeclaration).count();
 
             for (Instruction instruction : instructionQueue) {
                 instruction.apply(mv);

@@ -1,21 +1,23 @@
 package org.mromichov.parsing.domain;
 
+import org.mromichov.type.Type;
+
 public class Variable {
-    private int id;
-    private int type;
+    private int index;
+    private Type type;
     private String value;
 
-    public Variable(int id, int type, String value) {
-        this.id = id;
+    public Variable(int index, Type type, String value) {
+        this.index = index;
         this.type = type;
         this.value = value;
     }
 
-    public int getId() {
-        return id;
+    public int getIndex() {
+        return index;
     }
 
-    public int getType() {
+    public Type getType() {
         return type;
     }
 
