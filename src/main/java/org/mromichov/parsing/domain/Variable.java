@@ -24,4 +24,16 @@ public class Variable {
     public String getValue() {
         return value;
     }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
 }

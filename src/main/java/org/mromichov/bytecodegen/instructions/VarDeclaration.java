@@ -9,18 +9,20 @@ import static org.objectweb.asm.Opcodes.*;
 
 public class VarDeclaration implements Instruction {
 
-    Variable var;
+    private final Variable var;
+    private final String value;
     public VarDeclaration(Variable var) {
         this.var = var;
+        this.value = var.getValue();
     }
 
     @Override
     public void apply(MethodVisitor mv) {
         final Type type = var.getType();
         if (type == Type.INT) {
-            int val = Integer.parseInt(var.getValue());
+            int val = Integer.parseInt(value);
             if (val >= -1 && val <= 5) {
-                mv.visitInsn(3 + val); // ICONST_M1 = 2 ... ICONST_5 = 8 => команда = 3 + число
+                mv.visitInsn(3 + val); // ICONST_M1 = 2 ... ICONST_5 = 8 => код операции = 3 + число
             } else if (val >= Byte.MIN_VALUE && val <= Byte.MAX_VALUE) {
                 mv.visitIntInsn(BIPUSH, val);
             } else if (val >= Short.MIN_VALUE && val <= Short.MAX_VALUE) {

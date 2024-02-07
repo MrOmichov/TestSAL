@@ -13,14 +13,18 @@ public class ProgramVisitor extends salBaseVisitor<Program> {
     public Program visitStart(salParser.StartContext ctx) {
         Program program = new Program();
         Map<String, Variable> memory = new HashMap<>();
+        VarDeclarationVisitor varDeclarationVisitor = new VarDeclarationVisitor(memory);
         AssignmentVisitor assignmentVisitor = new AssignmentVisitor(memory);
         PrintVisitor printVisitor = new PrintVisitor(memory);
         for (int i = 0; i < ctx.getChildCount(); i++) {
             if (i == ctx.getChildCount() - 1) {
 
             } else {
-                if (ctx.getChild(i) instanceof salParser.AssignmentContext)
+                if (ctx.getChild(i) instanceof salParser.VariableDeclarationContext)
+                    program.addInstruction(varDeclarationVisitor.visit((salParser.VariableDeclarationContext) ctx.getChild(i)));
+                else if (ctx.getChild(i) instanceof salParser.AssignmentContext) {
                     program.addInstruction(assignmentVisitor.visit((salParser.AssignmentContext) ctx.getChild(i)));
+                }
                 else if (ctx.getChild(i) instanceof salParser.PrintContext)
                     program.addInstruction(printVisitor.visit((salParser.PrintContext) ctx.getChild(i)));
             }

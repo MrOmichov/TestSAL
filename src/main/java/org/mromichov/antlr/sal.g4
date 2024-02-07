@@ -1,8 +1,10 @@
 grammar sal;
 
-start       :       ( assignment | print )* EOF;
+start       :       ( variableDeclaration | assignment | print )* EOF;
 
-assignment  :       TYPE ID ASSIGN expression        ;
+variableDeclaration
+            :       TYPE ID ASSIGN expression        ;
+assignment  :       ID ASSIGN expression             ;
 print       :       PRINT ID (',' NEXTLINE)*         ;
 
 expression  :       t1=term
@@ -18,6 +20,7 @@ atom        :       value
             ;
 value       :       NUMBER
             |       STRING
+            |       ID
             ;
 
 TYPE        :       '\u0446\u0435\u043b'                                             // цел

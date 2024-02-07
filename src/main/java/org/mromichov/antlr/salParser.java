@@ -1,4 +1,4 @@
-// Generated from D:/IdeaProjects/TestSAL/src/main/java/org/mromichov/antlr/sal.g4 by ANTLR 4.13.1
+// Generated from C:/TestSAL/src/main/java/org/mromichov/antlr/sal.g4 by ANTLR 4.13.1
 package org.mromichov.antlr;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -20,11 +20,12 @@ public class salParser extends Parser {
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, TYPE=8, PRINT=9, 
 		NEXTLINE=10, ID=11, ASSIGN=12, NUMBER=13, STRING=14, WS=15;
 	public static final int
-		RULE_start = 0, RULE_assignment = 1, RULE_print = 2, RULE_expression = 3, 
-		RULE_term = 4, RULE_atom = 5, RULE_value = 6;
+		RULE_start = 0, RULE_variableDeclaration = 1, RULE_assignment = 2, RULE_print = 3, 
+		RULE_expression = 4, RULE_term = 5, RULE_atom = 6, RULE_value = 7;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"start", "assignment", "print", "expression", "term", "atom", "value"
+			"start", "variableDeclaration", "assignment", "print", "expression", 
+			"term", "atom", "value"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -96,6 +97,12 @@ public class salParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class StartContext extends ParserRuleContext {
 		public TerminalNode EOF() { return getToken(salParser.EOF, 0); }
+		public List<VariableDeclarationContext> variableDeclaration() {
+			return getRuleContexts(VariableDeclarationContext.class);
+		}
+		public VariableDeclarationContext variableDeclaration(int i) {
+			return getRuleContext(VariableDeclarationContext.class,i);
+		}
 		public List<AssignmentContext> assignment() {
 			return getRuleContexts(AssignmentContext.class);
 		}
@@ -113,14 +120,6 @@ public class salParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_start; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof salListener ) ((salListener)listener).enterStart(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof salListener ) ((salListener)listener).exitStart(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof salVisitor ) return ((salVisitor<? extends T>)visitor).visitStart(this);
 			else return visitor.visitChildren(this);
@@ -134,23 +133,29 @@ public class salParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(18);
+			setState(21);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==TYPE || _la==PRINT) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 2816L) != 0)) {
 				{
-				setState(16);
+				setState(19);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
 				case TYPE:
 					{
-					setState(14);
+					setState(16);
+					variableDeclaration();
+					}
+					break;
+				case ID:
+					{
+					setState(17);
 					assignment();
 					}
 					break;
 				case PRINT:
 					{
-					setState(15);
+					setState(18);
 					print();
 					}
 					break;
@@ -158,11 +163,11 @@ public class salParser extends Parser {
 					throw new NoViableAltException(this);
 				}
 				}
-				setState(20);
+				setState(23);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(21);
+			setState(24);
 			match(EOF);
 			}
 		}
@@ -178,8 +183,53 @@ public class salParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class AssignmentContext extends ParserRuleContext {
+	public static class VariableDeclarationContext extends ParserRuleContext {
 		public TerminalNode TYPE() { return getToken(salParser.TYPE, 0); }
+		public TerminalNode ID() { return getToken(salParser.ID, 0); }
+		public TerminalNode ASSIGN() { return getToken(salParser.ASSIGN, 0); }
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
+		}
+		public VariableDeclarationContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_variableDeclaration; }
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof salVisitor ) return ((salVisitor<? extends T>)visitor).visitVariableDeclaration(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final VariableDeclarationContext variableDeclaration() throws RecognitionException {
+		VariableDeclarationContext _localctx = new VariableDeclarationContext(_ctx, getState());
+		enterRule(_localctx, 2, RULE_variableDeclaration);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(26);
+			match(TYPE);
+			setState(27);
+			match(ID);
+			setState(28);
+			match(ASSIGN);
+			setState(29);
+			expression();
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class AssignmentContext extends ParserRuleContext {
 		public TerminalNode ID() { return getToken(salParser.ID, 0); }
 		public TerminalNode ASSIGN() { return getToken(salParser.ASSIGN, 0); }
 		public ExpressionContext expression() {
@@ -190,14 +240,6 @@ public class salParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_assignment; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof salListener ) ((salListener)listener).enterAssignment(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof salListener ) ((salListener)listener).exitAssignment(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof salVisitor ) return ((salVisitor<? extends T>)visitor).visitAssignment(this);
 			else return visitor.visitChildren(this);
@@ -206,17 +248,15 @@ public class salParser extends Parser {
 
 	public final AssignmentContext assignment() throws RecognitionException {
 		AssignmentContext _localctx = new AssignmentContext(_ctx, getState());
-		enterRule(_localctx, 2, RULE_assignment);
+		enterRule(_localctx, 4, RULE_assignment);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(23);
-			match(TYPE);
-			setState(24);
+			setState(31);
 			match(ID);
-			setState(25);
+			setState(32);
 			match(ASSIGN);
-			setState(26);
+			setState(33);
 			expression();
 			}
 		}
@@ -244,14 +284,6 @@ public class salParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_print; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof salListener ) ((salListener)listener).enterPrint(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof salListener ) ((salListener)listener).exitPrint(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof salVisitor ) return ((salVisitor<? extends T>)visitor).visitPrint(this);
 			else return visitor.visitChildren(this);
@@ -260,28 +292,28 @@ public class salParser extends Parser {
 
 	public final PrintContext print() throws RecognitionException {
 		PrintContext _localctx = new PrintContext(_ctx, getState());
-		enterRule(_localctx, 4, RULE_print);
+		enterRule(_localctx, 6, RULE_print);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(28);
+			setState(35);
 			match(PRINT);
-			setState(29);
+			setState(36);
 			match(ID);
-			setState(34);
+			setState(41);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==T__0) {
 				{
 				{
-				setState(30);
+				setState(37);
 				match(T__0);
-				setState(31);
+				setState(38);
 				match(NEXTLINE);
 				}
 				}
-				setState(36);
+				setState(43);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -313,14 +345,6 @@ public class salParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_expression; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof salListener ) ((salListener)listener).enterExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof salListener ) ((salListener)listener).exitExpression(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof salVisitor ) return ((salVisitor<? extends T>)visitor).visitExpression(this);
 			else return visitor.visitChildren(this);
@@ -329,34 +353,34 @@ public class salParser extends Parser {
 
 	public final ExpressionContext expression() throws RecognitionException {
 		ExpressionContext _localctx = new ExpressionContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_expression);
+		enterRule(_localctx, 8, RULE_expression);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(37);
-			((ExpressionContext)_localctx).t1 = term();
 			setState(44);
+			((ExpressionContext)_localctx).t1 = term();
+			setState(51);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==T__1 || _la==T__2) {
 				{
-				setState(42);
+				setState(49);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
 				case T__1:
 					{
-					setState(38);
+					setState(45);
 					match(T__1);
-					setState(39);
+					setState(46);
 					((ExpressionContext)_localctx).t2 = term();
 					}
 					break;
 				case T__2:
 					{
-					setState(40);
+					setState(47);
 					match(T__2);
-					setState(41);
+					setState(48);
 					((ExpressionContext)_localctx).t2 = term();
 					}
 					break;
@@ -364,7 +388,7 @@ public class salParser extends Parser {
 					throw new NoViableAltException(this);
 				}
 				}
-				setState(46);
+				setState(53);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -396,14 +420,6 @@ public class salParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_term; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof salListener ) ((salListener)listener).enterTerm(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof salListener ) ((salListener)listener).exitTerm(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof salVisitor ) return ((salVisitor<? extends T>)visitor).visitTerm(this);
 			else return visitor.visitChildren(this);
@@ -412,34 +428,34 @@ public class salParser extends Parser {
 
 	public final TermContext term() throws RecognitionException {
 		TermContext _localctx = new TermContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_term);
+		enterRule(_localctx, 10, RULE_term);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(47);
-			((TermContext)_localctx).a1 = atom();
 			setState(54);
+			((TermContext)_localctx).a1 = atom();
+			setState(61);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==T__3 || _la==T__4) {
 				{
-				setState(52);
+				setState(59);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
 				case T__3:
 					{
-					setState(48);
+					setState(55);
 					match(T__3);
-					setState(49);
+					setState(56);
 					((TermContext)_localctx).a2 = atom();
 					}
 					break;
 				case T__4:
 					{
-					setState(50);
+					setState(57);
 					match(T__4);
-					setState(51);
+					setState(58);
 					((TermContext)_localctx).a2 = atom();
 					}
 					break;
@@ -447,7 +463,7 @@ public class salParser extends Parser {
 					throw new NoViableAltException(this);
 				}
 				}
-				setState(56);
+				setState(63);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -477,14 +493,6 @@ public class salParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_atom; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof salListener ) ((salListener)listener).enterAtom(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof salListener ) ((salListener)listener).exitAtom(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof salVisitor ) return ((salVisitor<? extends T>)visitor).visitAtom(this);
 			else return visitor.visitChildren(this);
@@ -493,27 +501,28 @@ public class salParser extends Parser {
 
 	public final AtomContext atom() throws RecognitionException {
 		AtomContext _localctx = new AtomContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_atom);
+		enterRule(_localctx, 12, RULE_atom);
 		try {
-			setState(62);
+			setState(69);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
+			case ID:
 			case NUMBER:
 			case STRING:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(57);
+				setState(64);
 				value();
 				}
 				break;
 			case T__5:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(58);
+				setState(65);
 				match(T__5);
-				setState(59);
+				setState(66);
 				expression();
-				setState(60);
+				setState(67);
 				match(T__6);
 				}
 				break;
@@ -536,18 +545,11 @@ public class salParser extends Parser {
 	public static class ValueContext extends ParserRuleContext {
 		public TerminalNode NUMBER() { return getToken(salParser.NUMBER, 0); }
 		public TerminalNode STRING() { return getToken(salParser.STRING, 0); }
+		public TerminalNode ID() { return getToken(salParser.ID, 0); }
 		public ValueContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_value; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof salListener ) ((salListener)listener).enterValue(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof salListener ) ((salListener)listener).exitValue(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof salVisitor ) return ((salVisitor<? extends T>)visitor).visitValue(this);
@@ -557,14 +559,14 @@ public class salParser extends Parser {
 
 	public final ValueContext value() throws RecognitionException {
 		ValueContext _localctx = new ValueContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_value);
+		enterRule(_localctx, 14, RULE_value);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(64);
+			setState(71);
 			_la = _input.LA(1);
-			if ( !(_la==NUMBER || _la==STRING) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 26624L) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -586,46 +588,50 @@ public class salParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\u000fC\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0004\u0001\u000fJ\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
 		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
-		"\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0001\u0000\u0001\u0000\u0005"+
-		"\u0000\u0011\b\u0000\n\u0000\f\u0000\u0014\t\u0000\u0001\u0000\u0001\u0000"+
-		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0002"+
-		"\u0001\u0002\u0001\u0002\u0001\u0002\u0005\u0002!\b\u0002\n\u0002\f\u0002"+
-		"$\t\u0002\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003"+
-		"\u0005\u0003+\b\u0003\n\u0003\f\u0003.\t\u0003\u0001\u0004\u0001\u0004"+
-		"\u0001\u0004\u0001\u0004\u0001\u0004\u0005\u00045\b\u0004\n\u0004\f\u0004"+
-		"8\t\u0004\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0005"+
-		"\u0003\u0005?\b\u0005\u0001\u0006\u0001\u0006\u0001\u0006\u0000\u0000"+
-		"\u0007\u0000\u0002\u0004\u0006\b\n\f\u0000\u0001\u0001\u0000\r\u000eC"+
-		"\u0000\u0012\u0001\u0000\u0000\u0000\u0002\u0017\u0001\u0000\u0000\u0000"+
-		"\u0004\u001c\u0001\u0000\u0000\u0000\u0006%\u0001\u0000\u0000\u0000\b"+
-		"/\u0001\u0000\u0000\u0000\n>\u0001\u0000\u0000\u0000\f@\u0001\u0000\u0000"+
-		"\u0000\u000e\u0011\u0003\u0002\u0001\u0000\u000f\u0011\u0003\u0004\u0002"+
-		"\u0000\u0010\u000e\u0001\u0000\u0000\u0000\u0010\u000f\u0001\u0000\u0000"+
-		"\u0000\u0011\u0014\u0001\u0000\u0000\u0000\u0012\u0010\u0001\u0000\u0000"+
-		"\u0000\u0012\u0013\u0001\u0000\u0000\u0000\u0013\u0015\u0001\u0000\u0000"+
-		"\u0000\u0014\u0012\u0001\u0000\u0000\u0000\u0015\u0016\u0005\u0000\u0000"+
-		"\u0001\u0016\u0001\u0001\u0000\u0000\u0000\u0017\u0018\u0005\b\u0000\u0000"+
-		"\u0018\u0019\u0005\u000b\u0000\u0000\u0019\u001a\u0005\f\u0000\u0000\u001a"+
-		"\u001b\u0003\u0006\u0003\u0000\u001b\u0003\u0001\u0000\u0000\u0000\u001c"+
-		"\u001d\u0005\t\u0000\u0000\u001d\"\u0005\u000b\u0000\u0000\u001e\u001f"+
-		"\u0005\u0001\u0000\u0000\u001f!\u0005\n\u0000\u0000 \u001e\u0001\u0000"+
-		"\u0000\u0000!$\u0001\u0000\u0000\u0000\" \u0001\u0000\u0000\u0000\"#\u0001"+
-		"\u0000\u0000\u0000#\u0005\u0001\u0000\u0000\u0000$\"\u0001\u0000\u0000"+
-		"\u0000%,\u0003\b\u0004\u0000&\'\u0005\u0002\u0000\u0000\'+\u0003\b\u0004"+
-		"\u0000()\u0005\u0003\u0000\u0000)+\u0003\b\u0004\u0000*&\u0001\u0000\u0000"+
-		"\u0000*(\u0001\u0000\u0000\u0000+.\u0001\u0000\u0000\u0000,*\u0001\u0000"+
-		"\u0000\u0000,-\u0001\u0000\u0000\u0000-\u0007\u0001\u0000\u0000\u0000"+
-		".,\u0001\u0000\u0000\u0000/6\u0003\n\u0005\u000001\u0005\u0004\u0000\u0000"+
-		"15\u0003\n\u0005\u000023\u0005\u0005\u0000\u000035\u0003\n\u0005\u0000"+
-		"40\u0001\u0000\u0000\u000042\u0001\u0000\u0000\u000058\u0001\u0000\u0000"+
-		"\u000064\u0001\u0000\u0000\u000067\u0001\u0000\u0000\u00007\t\u0001\u0000"+
-		"\u0000\u000086\u0001\u0000\u0000\u00009?\u0003\f\u0006\u0000:;\u0005\u0006"+
-		"\u0000\u0000;<\u0003\u0006\u0003\u0000<=\u0005\u0007\u0000\u0000=?\u0001"+
-		"\u0000\u0000\u0000>9\u0001\u0000\u0000\u0000>:\u0001\u0000\u0000\u0000"+
-		"?\u000b\u0001\u0000\u0000\u0000@A\u0007\u0000\u0000\u0000A\r\u0001\u0000"+
-		"\u0000\u0000\b\u0010\u0012\"*,46>";
+		"\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007\u0001"+
+		"\u0000\u0001\u0000\u0001\u0000\u0005\u0000\u0014\b\u0000\n\u0000\f\u0000"+
+		"\u0017\t\u0000\u0001\u0000\u0001\u0000\u0001\u0001\u0001\u0001\u0001\u0001"+
+		"\u0001\u0001\u0001\u0001\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002"+
+		"\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0005\u0003(\b\u0003"+
+		"\n\u0003\f\u0003+\t\u0003\u0001\u0004\u0001\u0004\u0001\u0004\u0001\u0004"+
+		"\u0001\u0004\u0005\u00042\b\u0004\n\u0004\f\u00045\t\u0004\u0001\u0005"+
+		"\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0005\u0005<\b\u0005"+
+		"\n\u0005\f\u0005?\t\u0005\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0006"+
+		"\u0001\u0006\u0003\u0006F\b\u0006\u0001\u0007\u0001\u0007\u0001\u0007"+
+		"\u0000\u0000\b\u0000\u0002\u0004\u0006\b\n\f\u000e\u0000\u0001\u0002\u0000"+
+		"\u000b\u000b\r\u000eJ\u0000\u0015\u0001\u0000\u0000\u0000\u0002\u001a"+
+		"\u0001\u0000\u0000\u0000\u0004\u001f\u0001\u0000\u0000\u0000\u0006#\u0001"+
+		"\u0000\u0000\u0000\b,\u0001\u0000\u0000\u0000\n6\u0001\u0000\u0000\u0000"+
+		"\fE\u0001\u0000\u0000\u0000\u000eG\u0001\u0000\u0000\u0000\u0010\u0014"+
+		"\u0003\u0002\u0001\u0000\u0011\u0014\u0003\u0004\u0002\u0000\u0012\u0014"+
+		"\u0003\u0006\u0003\u0000\u0013\u0010\u0001\u0000\u0000\u0000\u0013\u0011"+
+		"\u0001\u0000\u0000\u0000\u0013\u0012\u0001\u0000\u0000\u0000\u0014\u0017"+
+		"\u0001\u0000\u0000\u0000\u0015\u0013\u0001\u0000\u0000\u0000\u0015\u0016"+
+		"\u0001\u0000\u0000\u0000\u0016\u0018\u0001\u0000\u0000\u0000\u0017\u0015"+
+		"\u0001\u0000\u0000\u0000\u0018\u0019\u0005\u0000\u0000\u0001\u0019\u0001"+
+		"\u0001\u0000\u0000\u0000\u001a\u001b\u0005\b\u0000\u0000\u001b\u001c\u0005"+
+		"\u000b\u0000\u0000\u001c\u001d\u0005\f\u0000\u0000\u001d\u001e\u0003\b"+
+		"\u0004\u0000\u001e\u0003\u0001\u0000\u0000\u0000\u001f \u0005\u000b\u0000"+
+		"\u0000 !\u0005\f\u0000\u0000!\"\u0003\b\u0004\u0000\"\u0005\u0001\u0000"+
+		"\u0000\u0000#$\u0005\t\u0000\u0000$)\u0005\u000b\u0000\u0000%&\u0005\u0001"+
+		"\u0000\u0000&(\u0005\n\u0000\u0000\'%\u0001\u0000\u0000\u0000(+\u0001"+
+		"\u0000\u0000\u0000)\'\u0001\u0000\u0000\u0000)*\u0001\u0000\u0000\u0000"+
+		"*\u0007\u0001\u0000\u0000\u0000+)\u0001\u0000\u0000\u0000,3\u0003\n\u0005"+
+		"\u0000-.\u0005\u0002\u0000\u0000.2\u0003\n\u0005\u0000/0\u0005\u0003\u0000"+
+		"\u000002\u0003\n\u0005\u00001-\u0001\u0000\u0000\u00001/\u0001\u0000\u0000"+
+		"\u000025\u0001\u0000\u0000\u000031\u0001\u0000\u0000\u000034\u0001\u0000"+
+		"\u0000\u00004\t\u0001\u0000\u0000\u000053\u0001\u0000\u0000\u00006=\u0003"+
+		"\f\u0006\u000078\u0005\u0004\u0000\u00008<\u0003\f\u0006\u00009:\u0005"+
+		"\u0005\u0000\u0000:<\u0003\f\u0006\u0000;7\u0001\u0000\u0000\u0000;9\u0001"+
+		"\u0000\u0000\u0000<?\u0001\u0000\u0000\u0000=;\u0001\u0000\u0000\u0000"+
+		"=>\u0001\u0000\u0000\u0000>\u000b\u0001\u0000\u0000\u0000?=\u0001\u0000"+
+		"\u0000\u0000@F\u0003\u000e\u0007\u0000AB\u0005\u0006\u0000\u0000BC\u0003"+
+		"\b\u0004\u0000CD\u0005\u0007\u0000\u0000DF\u0001\u0000\u0000\u0000E@\u0001"+
+		"\u0000\u0000\u0000EA\u0001\u0000\u0000\u0000F\r\u0001\u0000\u0000\u0000"+
+		"GH\u0007\u0000\u0000\u0000H\u000f\u0001\u0000\u0000\u0000\b\u0013\u0015"+
+		")13;=E";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

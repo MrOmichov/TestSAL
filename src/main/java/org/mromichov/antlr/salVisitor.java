@@ -1,4 +1,4 @@
-// Generated from D:/IdeaProjects/TestSAL/src/main/java/org/mromichov/antlr/sal.g4 by ANTLR 4.13.1
+// Generated from C:/TestSAL/src/main/java/org/mromichov/antlr/sal.g4 by ANTLR 4.13.1
 package org.mromichov.antlr;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -16,6 +16,12 @@ public interface salVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitStart(salParser.StartContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#variableDeclaration}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVariableDeclaration(salParser.VariableDeclarationContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link salParser#assignment}.
 	 * @param ctx the parse tree

@@ -19,27 +19,15 @@ public class AssignmentVisitor extends salBaseVisitor<VarDeclaration> {
     }
     @Override
     public VarDeclaration visitAssignment(salParser.AssignmentContext ctx) {
-        final TerminalNode varName = ctx.ID();                                // Имя переменной
-        final String varType = ctx.TYPE().getText();                          // Объявленный тип переменной
-        // Значение переменной
-        String varValue = "";
-        if (varType.equals("цел")) varValue = new Expression(ctx.expression().getText(), memory).evaluate();
-        else if (varType.equals("лит")) varValue = StringUtils.remove(ctx.expression().getText(), '"');
-        // Тип значения переменной
-        Type varValueType = Type.INT;
-        if (varType.equals("лит")) varValueType = Type.STRING;
-        // final boolean badDeclaredVarType = checkingForTypeCompliance(varType, varValueType);
-        /*
-        if (badDeclaredVarType) {
-            final String errorFormat = "Ошибка: попытка присвоить неверное значение '%s' переменной '%s'\n";
-            System.out.printf(errorFormat, varValue.getText(), varName.getText());
-        }
-        */
-        final int varIndex = memory.size();                            // Порядковый номер (индекс) переменной
-        //final String varTextValue = varValue.getText();              // Значение переменной в текстовом представлении
-        Variable var = new Variable(varIndex, varValueType, varValue);
-        memory.put(varName.getText(), var);
-        logVarDeclarationStatementFound(varName, var);
+        final TerminalNode varName = ctx.ID();                                              // Имя переменной
+        Variable var = memory.get(varName.getText());
+
+        if (memory.containsKey(varName.getText())) var = memory.get(varName.getText());
+        else System.out.printf("Ошибка: переменная '%s' не объявлена", varName.getText());  // Если такая переменная не объявлена
+
+        if (var.getType() == Type.INT) var.setValue(new Expression(ctx.expression().getText(), memory).evaluate());
+        else if (var.getType() == Type.STRING) var.setValue(StringUtils.remove(ctx.expression().getText(), '"'));
+        logAssignmentStatementFound(varName, var);
         return new VarDeclaration(var);
     }
 
@@ -49,9 +37,9 @@ public class AssignmentVisitor extends salBaseVisitor<VarDeclaration> {
         return true;
     }
 
-    private void logVarDeclarationStatementFound(TerminalNode varName, Variable var) {
+    private void logAssignmentStatementFound(TerminalNode varName, Variable var) {
         final int line = varName.getSymbol().getLine();
-        final String format = "Успех: переменная '%s' со значением '%s' была объявлена в строке '%s'\n";
+        final String format = "Успех: значение переменной '%s' было изменено на '%s' в строке '%s'\n";
         System.out.printf(format, varName.getText(), var.getValue(), line);
     }
 }
