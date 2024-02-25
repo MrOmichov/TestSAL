@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.mromichov.antlr.expression.ExpressionLexer;
 import org.mromichov.antlr.expression.ExpressionParser;
 import org.mromichov.bytecodegen.instructions.Instruction;
+import org.mromichov.type.Type;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,12 +25,18 @@ public class Expression {
     }
 
     public String evaluate() {
+        /*
+        Создание HashMap исключительно с переменными целочисленного типа
+         */
         final Map<String, Integer> vars = new HashMap<>();
         List<String> keys = memory.keySet().stream().toList();
         String val;
         for (String key : keys) {
-            val = memory.get(key).getValue();
-            if (StringUtils.isNumeric(val)) vars.put(key, Integer.parseInt(val));
+            Variable var = memory.get(key);
+            if (var.getType() == Type.INT) {
+                val = var.getValue();
+                vars.put(key, Integer.parseInt(val));
+            }
         }
         CharStream input = CharStreams.fromString(text);
         ExpressionLexer lexer = new ExpressionLexer(input);

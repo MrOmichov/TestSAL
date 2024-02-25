@@ -2,22 +2,21 @@ package org.mromichov.parsing.domain;
 
 import org.mromichov.bytecodegen.instructions.Instruction;
 
-import java.util.ArrayDeque;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 
 public class Program {
-    private Queue<Instruction> instructionQueue;
+    private List<Algorithm> algorithms;
 
     public Program() {
-        this.instructionQueue = new ArrayDeque<>();
+        this.algorithms = new ArrayList<>();
     }
 
-    public void addInstruction(Instruction instruction) {
-        instructionQueue.add(instruction);
+    public void addAlgorithm(Algorithm algorithm) {
+        algorithms.add(algorithm);
     }
 
-    public Queue<Instruction> getInstructionQueue() {
-        return instructionQueue;
+    public List<Algorithm> getAlgorithms() {
+        return algorithms;
     }
+
 }

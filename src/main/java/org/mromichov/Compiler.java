@@ -1,11 +1,11 @@
 package org.mromichov;
 
 import org.mromichov.bytecodegen.BytecodeGenerator;
-import org.mromichov.bytecodegen.instructions.Instruction;
 import org.mromichov.parsing.SyntaxTreeTraverser;
+import org.mromichov.parsing.domain.Algorithm;
 
 import java.io.*;
-import java.util.Queue;
+import java.util.List;
 
 public class Compiler {
 
@@ -26,8 +26,8 @@ public class Compiler {
         final String fileName = salFile.getName();
         final String fileAbsPath = salFile.getAbsolutePath();
         final String className = fileName.substring(0,fileName.length() - 4); // Название класса
-        final Queue<Instruction> instructionQueue = new SyntaxTreeTraverser().getInstructions(fileAbsPath);
-        final byte[] bytecode = new BytecodeGenerator().generateBytecode(instructionQueue, className);
+        final List<Algorithm> algorithms = new SyntaxTreeTraverser(className).getAlgorithms(fileAbsPath);
+        final byte[] bytecode = new BytecodeGenerator().generateBytecode(algorithms, className);
         saveBytecodeToClassFile(fileName, bytecode);
     }
 

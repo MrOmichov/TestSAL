@@ -6,14 +6,13 @@ import org.mromichov.antlr.salBaseVisitor;
 import org.mromichov.antlr.salParser;
 import org.mromichov.bytecodegen.instructions.VarDeclaration;
 import org.mromichov.parsing.domain.Expression;
-import org.mromichov.parsing.domain.Program;
 import org.mromichov.parsing.domain.Variable;
 import org.mromichov.type.Type;
 
 import java.util.Map;
 
 public class AssignmentVisitor extends salBaseVisitor<VarDeclaration> {
-    private Map<String, Variable> memory;
+    private final Map<String, Variable> memory;
     public AssignmentVisitor(Map<String, Variable> memory) {
         this.memory = memory;
     }

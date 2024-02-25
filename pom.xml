@@ -42,5 +42,16 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.14.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>13.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.ibm.icu</groupId>
+            <artifactId>icu4j</artifactId>
+            <version>74.2</version>
+        </dependency>
     </dependencies>
 </project>

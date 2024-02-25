@@ -1,4 +1,4 @@
-// Generated from C:/TestSAL/src/main/java/org/mromichov/antlr/sal.g4 by ANTLR 4.13.1
+// Generated from D:/IdeaProjects/TestSAL/src/main/java/org/mromichov/antlr/sal.g4 by ANTLR 4.13.1
 package org.mromichov.antlr;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -17,6 +17,48 @@ public interface salVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStart(salParser.StartContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link salParser#algorithm}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAlgorithm(salParser.AlgorithmContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#algorithmDeclaration}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAlgorithmDeclaration(salParser.AlgorithmDeclarationContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#algorithmName}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAlgorithmName(salParser.AlgorithmNameContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#parameterList}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParameterList(salParser.ParameterListContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#parameter}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParameter(salParser.ParameterContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStatement(salParser.StatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#block}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBlock(salParser.BlockContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link salParser#variableDeclaration}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -34,6 +76,24 @@ public interface salVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitPrint(salParser.PrintContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#algorithmCall}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAlgorithmCall(salParser.AlgorithmCallContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#argumentList}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArgumentList(salParser.ArgumentListContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#argument}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArgument(salParser.ArgumentContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link salParser#expression}.
 	 * @param ctx the parse tree

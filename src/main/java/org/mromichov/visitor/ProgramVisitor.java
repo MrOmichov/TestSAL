@@ -2,31 +2,37 @@ package org.mromichov.visitor;
 
 import org.mromichov.antlr.salBaseVisitor;
 import org.mromichov.antlr.salParser;
+import org.mromichov.parsing.domain.Algorithm;
 import org.mromichov.parsing.domain.Program;
 import org.mromichov.parsing.domain.Variable;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ProgramVisitor extends salBaseVisitor<Program> {
+    private final String className;
+    public ProgramVisitor(String className) {
+        this.className = className;
+    }
+
     @Override
     public Program visitStart(salParser.StartContext ctx) {
         Program program = new Program();
         Map<String, Variable> memory = new HashMap<>();
-        VarDeclarationVisitor varDeclarationVisitor = new VarDeclarationVisitor(memory);
-        AssignmentVisitor assignmentVisitor = new AssignmentVisitor(memory);
-        PrintVisitor printVisitor = new PrintVisitor(memory);
+        AlgorithmVisitor algorithmVisitor = new AlgorithmVisitor(memory, className);
         for (int i = 0; i < ctx.getChildCount(); i++) {
             if (i == ctx.getChildCount() - 1) {
 
             } else {
-                if (ctx.getChild(i) instanceof salParser.VariableDeclarationContext)
-                    program.addInstruction(varDeclarationVisitor.visit((salParser.VariableDeclarationContext) ctx.getChild(i)));
-                else if (ctx.getChild(i) instanceof salParser.AssignmentContext) {
-                    program.addInstruction(assignmentVisitor.visit((salParser.AssignmentContext) ctx.getChild(i)));
+                program.addAlgorithm(algorithmVisitor.visit(ctx.getChild(i)));
+            }
+            for (Algorithm algorithm : program.getAlgorithms()) {
+                List<salParser.StatementContext> statements = algorithm.getBlock().statement();
+                AlgorithmBlockVisitor algorithmBlockVisitor = new AlgorithmBlockVisitor(algorithm.getMemory(), algorithm);
+                for (salParser.StatementContext statement : statements) {
+                    algorithm.addInstruction(algorithmBlockVisitor.visit(statement));
                 }
-                else if (ctx.getChild(i) instanceof salParser.PrintContext)
-                    program.addInstruction(printVisitor.visit((salParser.PrintContext) ctx.getChild(i)));
             }
         }
         return program;
