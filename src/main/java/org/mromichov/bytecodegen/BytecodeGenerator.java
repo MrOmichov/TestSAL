@@ -13,9 +13,10 @@ import static org.objectweb.asm.Opcodes.*;
 
 public class BytecodeGenerator {
     public byte[] generateBytecode(List<Algorithm> algorithms, String name) {
-        ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
+        System.out.println("Bytecode generation has started");
+        ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_FRAMES + ClassWriter.COMPUTE_MAXS);
         MethodVisitor mv;
-                //version, access, name, signature (for generics => Null), super class, super interfaces
+               //version, access, name, signature (for generics => Null), super class, super interfaces
         cw.visit(V1_8, ACC_PUBLIC, name, null, "java/lang/Object", null);
 
         /*
@@ -27,11 +28,12 @@ public class BytecodeGenerator {
             for (Instruction instruction : algorithms.get(0).getInstructionQueue()) {
                 instruction.apply(mv);
             }
+            algorithms.remove(0);
             mv.visitInsn(RETURN);
             mv.visitMaxs(-1, -1);
             mv.visitEnd();
         }
-        algorithms.remove(0);
+
         /*
         Реализация остальных методов
         */
@@ -40,7 +42,7 @@ public class BytecodeGenerator {
         }
 
         cw.visitEnd();
-
+        System.out.println("Bytecode generation is over");
         return cw.toByteArray();
     }
 }

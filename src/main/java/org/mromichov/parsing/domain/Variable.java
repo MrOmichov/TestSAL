@@ -6,11 +6,13 @@ public class Variable {
     private int index;
     private Type type;
     private String value;
+    private String name;
 
-    public Variable(int index, Type type, String value) {
+    public Variable(int index, Type type, String value, String name) {
         this.index = index;
         this.type = type;
         this.value = value;
+        this.name = name;
     }
 
     public int getIndex() {
@@ -25,6 +27,10 @@ public class Variable {
         return value;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setIndex(int index) {
         this.index = index;
     }
@@ -35,5 +41,9 @@ public class Variable {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

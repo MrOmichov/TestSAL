@@ -40,7 +40,7 @@ public class VarDeclarationVisitor extends salBaseVisitor<VarDeclaration> {
 
         final int varIndex = memory.size();                            // Порядковый номер (индекс) переменной
         //final String varTextValue = varValue.getText();              // Значение переменной в текстовом представлении
-        Variable var = new Variable(varIndex, varValueType, varValue);
+        Variable var = new Variable(varIndex, varValueType, varValue, varName.getText());
         memory.put(varName.getText(), var);
         logVarDeclarationStatementFound(varName, var);
         return new VarDeclaration(var);

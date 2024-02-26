@@ -25,7 +25,7 @@ public class Main {
         }
         Map<String, Variable> memory = new HashMap<>();
         for (int i = 1; i < 6; ++i) {
-            memory.put("_" + i, new Variable(i, Type.INT, String.valueOf(i)));
+            memory.put("_" + i, new Variable(i, Type.INT, String.valueOf(i), "a"));
             System.out.println("_" + i);
             System.out.println(memory.get("_" + i).getType());
             System.out.println(memory.get("_" + i).getIndex());

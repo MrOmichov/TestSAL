@@ -10,24 +10,37 @@ import org.mromichov.parsing.domain.Variable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class AlgorithmCallVisitor extends salBaseVisitor<AlgorithmCall> {
-    private final Algorithm algorithm;
-    public AlgorithmCallVisitor(Algorithm algorithm) {
-        this.algorithm = algorithm;
+    private final Algorithm currentAlgorithm;
+    private final List<Algorithm> algorithms;
+    public AlgorithmCallVisitor(Algorithm currentAlgorithm, List<Algorithm> algorithms) {
+        this.currentAlgorithm = currentAlgorithm;
+        this.algorithms = algorithms;
     }
 
     @Override
     public AlgorithmCall visitAlgorithmCall(salParser.AlgorithmCallContext ctx) {
         List<Variable> arguments = new ArrayList<>();
         List<String> argumentsNames = new ArrayList<>();
+
+        // Нахождение вызываемого алгоритма
+        Algorithm algorithm = algorithms
+                .stream()
+                .filter(a -> a.getName().equalsIgnoreCase(ctx.algorithmName().getText()))
+                .findFirst()
+                .get();
+
         List<salParser.ArgumentContext> argumentsCtx = ctx.argumentList().argument();
+        //TODO argument expressions evaluations
         for (salParser.ArgumentContext argumentCtx : argumentsCtx) {
             argumentsNames.add(argumentCtx.getText());
+            System.out.println(argumentCtx.getText());
         }
         for (String argument : argumentsNames) {
-            System.out.println(StringUtils.replaceEach(argument, new String[]{")"}, new String[]{""}));;
-            arguments.add(algorithm.getMemory().get(argument));
+            argument = StringUtils.replaceEach(argument, new String[]{")"}, new String[]{""});
+            arguments.add(currentAlgorithm.getMemory().get(argument));
         }
         logAlgorithmCallFound(ctx.algorithmName().ID(), algorithm.getName());
         return new AlgorithmCall(algorithm, algorithm.getClassName(), arguments);

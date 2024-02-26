@@ -6,6 +6,7 @@ import org.mromichov.bytecodegen.instructions.Instruction;
 import org.mromichov.parsing.domain.Algorithm;
 import org.mromichov.parsing.domain.Variable;
 
+import java.util.List;
 import java.util.Map;
 
 public class AlgorithmBlockVisitor extends salBaseVisitor<Instruction> {
@@ -14,13 +15,15 @@ public class AlgorithmBlockVisitor extends salBaseVisitor<Instruction> {
     private final AssignmentVisitor assignmentVisitor;
     private final PrintVisitor printVisitor;
     private final AlgorithmCallVisitor algorithmCallVisitor;
+    private final List<Algorithm> algorithms;
 
-    public AlgorithmBlockVisitor(Map<String, Variable> memory, Algorithm algorithm) {
-        this.memory = memory;
+    public AlgorithmBlockVisitor(Algorithm algorithm, List<Algorithm> algorithms) {
+        this.memory = algorithm.getMemory();
         this.varDeclarationVisitor = new VarDeclarationVisitor(memory);
         this.assignmentVisitor = new AssignmentVisitor(memory);
         this.printVisitor = new PrintVisitor(memory);
-        this.algorithmCallVisitor = new AlgorithmCallVisitor(algorithm);
+        this.algorithmCallVisitor = new AlgorithmCallVisitor(algorithm, algorithms);
+        this.algorithms = algorithms;
     }
 
     @Override

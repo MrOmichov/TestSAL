@@ -3,8 +3,8 @@ package org.mromichov.parsing.domain;
 import org.mromichov.type.Type;
 
 public class Parameter extends Variable {
-    public Parameter(int index, Type type, String value) {
-        super(index, type, value);
+    public Parameter(int index, Type type, String value, String name) {
+        super(index, type, value, name);
     }
 
     @Override
@@ -23,6 +23,11 @@ public class Parameter extends Variable {
     }
 
     @Override
+    public String getName() {
+        return super.getName();
+    }
+
+    @Override
     public void setIndex(int index) {
         super.setIndex(index);
     }
@@ -35,5 +40,10 @@ public class Parameter extends Variable {
     @Override
     public void setValue(String value) {
         super.setValue(value);
+    }
+
+    @Override
+    public void setName(String name) {
+        super.setName(name);
     }
 }

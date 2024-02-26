@@ -74,7 +74,7 @@ public class Algorithm {
          */
         StringBuilder descriptorSB = new StringBuilder("(");
         for (Parameter parameter : parameters) {
-            descriptorSB.append(parameter.getType());
+            descriptorSB.append(parameter.getType().getDescriptor());
         }
         descriptorSB.append(")").append(returnType.getDescriptor());
         return descriptorSB.toString();

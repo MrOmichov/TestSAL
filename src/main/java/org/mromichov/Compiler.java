@@ -39,6 +39,7 @@ public class Compiler {
     }
 
     private static void saveBytecodeToClassFile(String fileName, byte[] bytecode) throws IOException {
+        System.out.println("Saving bytecode to the file");
         final String classFileName = fileName.substring(0, fileName.length() - 3) + "class"; // .class файл с тем же названием
         try {
             OutputStream os = new FileOutputStream(classFileName);
@@ -47,5 +48,6 @@ public class Compiler {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        System.out.println("Compilation is complete");
     }
 }

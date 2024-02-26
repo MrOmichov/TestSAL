@@ -19,7 +19,7 @@ public class ParameterVisitor extends salBaseVisitor<Parameter> {
     public Parameter visitParameter(salParser.ParameterContext ctx) {
         String name = ctx.ID().getText();
         Type type = TypeResolver.getType(ctx.TYPE());
-        Parameter parameter = new Parameter(memory.size(), type,"");
+        Parameter parameter = new Parameter(memory.size(), type,"", name);
         memory.put(name, parameter);
         return parameter;
     }

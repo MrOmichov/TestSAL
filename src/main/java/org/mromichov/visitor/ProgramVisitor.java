@@ -27,12 +27,13 @@ public class ProgramVisitor extends salBaseVisitor<Program> {
             } else {
                 program.addAlgorithm(algorithmVisitor.visit(ctx.getChild(i)));
             }
-            for (Algorithm algorithm : program.getAlgorithms()) {
-                List<salParser.StatementContext> statements = algorithm.getBlock().statement();
-                AlgorithmBlockVisitor algorithmBlockVisitor = new AlgorithmBlockVisitor(algorithm.getMemory(), algorithm);
-                for (salParser.StatementContext statement : statements) {
-                    algorithm.addInstruction(algorithmBlockVisitor.visit(statement));
-                }
+        }
+
+        for (Algorithm algorithm : program.getAlgorithms()) {
+            List<salParser.StatementContext> statements = algorithm.getBlock().statement();
+            AlgorithmBlockVisitor algorithmBlockVisitor = new AlgorithmBlockVisitor(algorithm, program.getAlgorithms());
+            for (salParser.StatementContext statement : statements) {
+                algorithm.addInstruction(algorithmBlockVisitor.visit(statement));
             }
         }
         return program;
