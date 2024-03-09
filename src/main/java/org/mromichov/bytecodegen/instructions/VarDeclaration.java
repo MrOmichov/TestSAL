@@ -4,7 +4,6 @@ import org.mromichov.parsing.domain.Variable;
 import org.mromichov.type.Type;
 import org.objectweb.asm.MethodVisitor;
 
-import static org.mromichov.antlr.salLexer.*;
 import static org.objectweb.asm.Opcodes.*;
 
 public class VarDeclaration implements Instruction {
@@ -30,7 +29,7 @@ public class VarDeclaration implements Instruction {
             }
             mv.visitVarInsn(ISTORE, var.getIndex());
         } else if (type == Type.STRING) {
-            mv.visitLdcInsn(var.getValue());
+            mv.visitLdcInsn(value);
             mv.visitVarInsn(ASTORE, var.getIndex());
         }
     }
