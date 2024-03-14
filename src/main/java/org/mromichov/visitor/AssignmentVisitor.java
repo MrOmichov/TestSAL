@@ -27,7 +27,7 @@ public class AssignmentVisitor extends salBaseVisitor<VarDeclaration> {
         if (var.getType() == Type.INT) var.setValue(new Expression(ctx.expression().getText(), memory).evaluate());
         else if (var.getType() == Type.STRING) var.setValue(StringUtils.remove(ctx.expression().getText(), '"'));
         logAssignmentStatementFound(varName, var);
-        return new VarDeclaration(var);
+        return new VarDeclaration(var, ctx.expression(), memory);
     }
 
     private boolean checkingForTypeCompliance(String varType, int varValueType) {

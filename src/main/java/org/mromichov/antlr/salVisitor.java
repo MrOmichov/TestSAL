@@ -107,15 +107,57 @@ public interface salVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTerm(salParser.TermContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link salParser#atom}.
+	 * Visit a parse tree produced by the {@code Algorithm_Call}
+	 * labeled alternative in {@link salParser#atom}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAtom(salParser.AtomContext ctx);
+	T visitAlgorithm_Call(salParser.Algorithm_CallContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link salParser#value}.
+	 * Visit a parse tree produced by the {@code VariableReference}
+	 * labeled alternative in {@link salParser#atom}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitValue(salParser.ValueContext ctx);
+	T visitVariableReference(salParser.VariableReferenceContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Number}
+	 * labeled alternative in {@link salParser#atom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNumber(salParser.NumberContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code DoubleNumber}
+	 * labeled alternative in {@link salParser#atom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDoubleNumber(salParser.DoubleNumberContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code String}
+	 * labeled alternative in {@link salParser#atom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitString(salParser.StringContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ParenExpression}
+	 * labeled alternative in {@link salParser#atom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParenExpression(salParser.ParenExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#termSign}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTermSign(salParser.TermSignContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#atomSign}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAtomSign(salParser.AtomSignContext ctx);
 }

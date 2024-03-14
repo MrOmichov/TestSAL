@@ -8,6 +8,7 @@ import org.mromichov.bytecodegen.instructions.VarDeclaration;
 import org.mromichov.parsing.domain.Expression;
 import org.mromichov.parsing.domain.Variable;
 import org.mromichov.type.Type;
+import org.mromichov.util.TypeResolver;
 
 import java.util.Map;
 
@@ -19,16 +20,14 @@ public class VarDeclarationVisitor extends salBaseVisitor<VarDeclaration> {
     @Override
     public VarDeclaration visitVariableDeclaration(salParser.VariableDeclarationContext ctx) {
         final TerminalNode varName = ctx.ID();                                // Имя переменной
-        final String varType = ctx.TYPE().getText();                          // Объявленный тип переменной
+
+        // Тип переменной
+        Type varType = TypeResolver.getType(ctx.TYPE());
 
         // Значение переменной
         String varValue = "";
-        if (varType.equals("цел")) varValue = new Expression(ctx.expression().getText(), memory).evaluate();
-        else if (varType.equals("лит")) varValue = StringUtils.remove(ctx.expression().getText(), '"');
-
-        // Тип значения переменной
-        Type varValueType = Type.INT;
-        if (varType.equals("лит")) varValueType = Type.STRING;
+        if (varType == Type.INT || varType == Type.DOUBLE) varValue = ctx.expression().getText();
+        else if (varType == Type.STRING) varValue = StringUtils.remove(ctx.expression().getText(), '"');
 
         // final boolean badDeclaredVarType = checkingForTypeCompliance(varType, varValueType);
         /*
@@ -40,10 +39,10 @@ public class VarDeclarationVisitor extends salBaseVisitor<VarDeclaration> {
 
         final int varIndex = memory.size();                            // Порядковый номер (индекс) переменной
         //final String varTextValue = varValue.getText();              // Значение переменной в текстовом представлении
-        Variable var = new Variable(varIndex, varValueType, varValue, varName.getText());
+        Variable var = new Variable(varIndex, varType, varValue, varName.getText());
         memory.put(varName.getText(), var);
         logVarDeclarationStatementFound(varName, var);
-        return new VarDeclaration(var);
+        return new VarDeclaration(var, ctx.expression(), memory);
     }
 
     private boolean checkingForTypeCompliance(String varType, int varValueType) {
