@@ -35,6 +35,7 @@ public class ProgramVisitor extends salBaseVisitor<Program> {
             for (salParser.StatementContext statement : statements) {
                 algorithm.addInstruction(algorithmBlockVisitor.visit(statement));
             }
+            algorithm.addInstruction(algorithmBlockVisitor.visitAlgorithmReturn(algorithm.getBlock().algorithmReturn()));
         }
         return program;
     }

@@ -2,6 +2,7 @@ package org.mromichov.expression;
 
 import org.mromichov.antlr.salBaseListener;
 import org.mromichov.antlr.salParser;
+import org.mromichov.parsing.domain.Algorithm;
 import org.mromichov.parsing.domain.Variable;
 import org.mromichov.type.Type;
 import org.objectweb.asm.MethodVisitor;
@@ -16,15 +17,19 @@ public class TermListener extends salBaseListener {
     private final MethodVisitor mv;
     private final Type type;
     private final Map<String, Variable> memory;
+    private final Algorithm currentAlgorithm;
+    private final List<Algorithm> algorithms;
 
-    public TermListener(MethodVisitor mv, Type type, Map<String, Variable> memory) {
+    public TermListener(MethodVisitor mv, Type type, Map<String, Variable> memory, Algorithm currentAlgorithm, List<Algorithm> algorithms) {
         this.mv = mv;
         this.type = type;
         this.memory = memory;
+        this.currentAlgorithm = currentAlgorithm;
+        this.algorithms = algorithms;
     }
     @Override
     public void exitTerm(salParser.TermContext ctx) {
-        AtomListener atomListener = new AtomListener(mv, type, memory);
+        AtomListener atomListener = new AtomListener(mv, type, memory, currentAlgorithm, algorithms);
         ctx.atom(0).exitRule(atomListener);
         if (ctx.atom().size() > 1) {
             List<salParser.AtomContext> atomCtx = ctx.atom();

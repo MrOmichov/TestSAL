@@ -88,6 +88,16 @@ public interface salListener extends ParseTreeListener {
 	 */
 	void exitBlock(salParser.BlockContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link salParser#algorithmReturn}.
+	 * @param ctx the parse tree
+	 */
+	void enterAlgorithmReturn(salParser.AlgorithmReturnContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link salParser#algorithmReturn}.
+	 * @param ctx the parse tree
+	 */
+	void exitAlgorithmReturn(salParser.AlgorithmReturnContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link salParser#variableDeclaration}.
 	 * @param ctx the parse tree
 	 */

@@ -25,7 +25,10 @@ statement   :       variableDeclaration
             |       expression
             ;
 
-block       :       BEGIN statement* END             ;
+block       :       BEGIN statement* algorithmReturn? END
+            ;
+
+algorithmReturn:    VAL ASSIGN expression            ;
 variableDeclaration
             :       TYPE ID ASSIGN expression        ;
 assignment  :       ID ASSIGN expression             ;
@@ -65,8 +68,15 @@ ALG         :       '\u0430\u043b\u0433'             ;                          
 ARG         :       '\u0430\u0440\u0433'             ;                               // арг
 BEGIN       :       '\u043d\u0430\u0447'             ;                               // нач
 END         :       '\u043a\u043e\u043d'             ;                               // кон
+VAL         :       '\u0437\u043d\u0430\u0447'       ;                               // знач
+
 TYPE        :       '\u0446\u0435\u043b'                                             // цел
-            |       '\u043b\u0438\u0442'             ;                               // лит
+            |       '\u0432\u0435\u0449'                                             // вещ
+            |       '\u0441\u0438\u043c'                                             // сим
+            |       '\u043b\u0438\u0442'                                             // лит
+            |       '\u043b\u043e\u0433'                                             // лог
+            ;
+
 PRINT       :       '\u0432\u044b\u0432\u043e\u0434' ;                               // вывод
 NEXTLINE    :       '\u043d\u0441' ;                                                 // нс — перевод каретки на новую строку
 ID          :       [\u0430-\u044f\u0410-\u042f_][\u0430-\u044f\u0410-\u042f0-9_]* ; // [а-яА-Я_][а-яА-Я0-9_]*

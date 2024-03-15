@@ -3,10 +3,13 @@ package org.mromichov.expression;
 import org.apache.commons.lang3.StringUtils;
 import org.mromichov.antlr.salBaseListener;
 import org.mromichov.antlr.salParser;
+import org.mromichov.parsing.domain.Algorithm;
 import org.mromichov.parsing.domain.Variable;
 import org.mromichov.type.Type;
+import org.mromichov.visitor.AlgorithmCallVisitor;
 import org.objectweb.asm.MethodVisitor;
 
+import java.util.List;
 import java.util.Map;
 
 import static org.objectweb.asm.Opcodes.*;
@@ -15,11 +18,15 @@ public class AtomListener extends salBaseListener {
     private final MethodVisitor mv;
     private final Type type;
     private final Map<String, Variable> memory;
+    private final Algorithm currentAlgorithm;
+    private final List<Algorithm> algorithms;
 
-    public AtomListener(MethodVisitor mv, Type type, Map<String, Variable> memory) {
+    public AtomListener(MethodVisitor mv, Type type, Map<String, Variable> memory, Algorithm currentAlgorithm, List<Algorithm> algorithms) {
         this.mv = mv;
         this.type = type;
         this.memory = memory;
+        this.currentAlgorithm = currentAlgorithm;
+        this.algorithms = algorithms;
     }
 
     @Override
@@ -64,7 +71,7 @@ public class AtomListener extends salBaseListener {
 
     @Override
     public void exitParenExpression(salParser.ParenExpressionContext ctx) {
-        ExprListener exprListener = new ExprListener(mv, type, memory);
+        ExprListener exprListener = new ExprListener(mv, type, memory, currentAlgorithm, algorithms);
         exprListener.exitExpression(ctx.expression());
     }
 
@@ -77,5 +84,11 @@ public class AtomListener extends salBaseListener {
     public void exitVariableReference(salParser.VariableReferenceContext ctx) {
         Variable var = memory.get(ctx.ID().getText());
         mv.visitVarInsn(var.getType().getLoad(), var.getIndex());
+    }
+
+    @Override
+    public void exitAlgorithm_Call(salParser.Algorithm_CallContext ctx) {
+        AlgorithmCallVisitor algorithmCallVisitor = new AlgorithmCallVisitor(currentAlgorithm, algorithms);
+        algorithmCallVisitor.visitAlgorithmCall(ctx.algorithmCall()).apply(mv);
     }
 }

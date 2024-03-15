@@ -5,17 +5,24 @@ import org.apache.commons.lang3.StringUtils;
 import org.mromichov.antlr.salBaseVisitor;
 import org.mromichov.antlr.salParser;
 import org.mromichov.bytecodegen.instructions.VarDeclaration;
+import org.mromichov.parsing.domain.Algorithm;
 import org.mromichov.parsing.domain.Expression;
 import org.mromichov.parsing.domain.Variable;
 import org.mromichov.type.Type;
 import org.mromichov.util.TypeResolver;
 
+import java.util.List;
 import java.util.Map;
 
 public class VarDeclarationVisitor extends salBaseVisitor<VarDeclaration> {
     private Map<String, Variable> memory;
-    public VarDeclarationVisitor(Map<String, Variable> memory) {
+    private final Algorithm currentAlgorithm;
+    private final List<Algorithm> algorithms;
+
+    public VarDeclarationVisitor(Map<String, Variable> memory, Algorithm currentAlgorithm, List<Algorithm> algorithms) {
         this.memory = memory;
+        this.currentAlgorithm = currentAlgorithm;
+        this.algorithms = algorithms;
     }
     @Override
     public VarDeclaration visitVariableDeclaration(salParser.VariableDeclarationContext ctx) {
@@ -42,7 +49,7 @@ public class VarDeclarationVisitor extends salBaseVisitor<VarDeclaration> {
         Variable var = new Variable(varIndex, varType, varValue, varName.getText());
         memory.put(varName.getText(), var);
         logVarDeclarationStatementFound(varName, var);
-        return new VarDeclaration(var, ctx.expression(), memory);
+        return new VarDeclaration(var, ctx.expression(), memory, currentAlgorithm, algorithms);
     }
 
     private boolean checkingForTypeCompliance(String varType, int varValueType) {

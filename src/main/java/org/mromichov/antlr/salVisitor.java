@@ -59,6 +59,12 @@ public interface salVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBlock(salParser.BlockContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link salParser#algorithmReturn}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAlgorithmReturn(salParser.AlgorithmReturnContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link salParser#variableDeclaration}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

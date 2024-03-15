@@ -29,7 +29,7 @@ public class BytecodeGenerator {
                 instruction.apply(mv);
             }
             algorithms.remove(0);
-            mv.visitInsn(RETURN);
+            //mv.visitInsn(RETURN);
             mv.visitMaxs(-1, -1);
             mv.visitEnd();
         }

@@ -86,7 +86,7 @@ public class Algorithm {
         for (Instruction instruction : instructionQueue) {
             instruction.apply(mv);
         }
-        mv.visitInsn(returnType.getReturn());
+        // mv.visitInsn(returnType.getReturn());
         mv.visitMaxs(-1, -1);
         mv.visitEnd();
     }

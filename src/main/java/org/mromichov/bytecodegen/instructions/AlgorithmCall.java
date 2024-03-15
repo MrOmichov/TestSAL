@@ -24,7 +24,9 @@ public class AlgorithmCall implements Instruction {
     }
     @Override
     public void apply(MethodVisitor mv) {
-        pushArguments(mv);
+        if (arguments != null) {
+            pushArguments(mv);
+        }
         mv.visitMethodInsn(INVOKESTATIC, className, algorithmName, descriptor, false);
     }
 
