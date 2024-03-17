@@ -53,6 +53,24 @@ public interface salVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStatement(salParser.StatementContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link salParser#ifStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIfStatement(salParser.IfStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#condition}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCondition(salParser.ConditionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#ifBlock}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIfBlock(salParser.IfBlockContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link salParser#block}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -166,4 +184,10 @@ public interface salVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitAtomSign(salParser.AtomSignContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#comparisonSign}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitComparisonSign(salParser.ComparisonSignContext ctx);
 }

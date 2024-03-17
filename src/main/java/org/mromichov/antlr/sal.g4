@@ -22,7 +22,18 @@ parameter   :       TYPE ID
 statement   :       variableDeclaration
             |       assignment
             |       print
+            |       ifStatement
             |       expression
+            ;
+
+ifStatement :       IF condition THEN ifBlock ALL    ;
+
+condition
+            :       expression comparisonSign expression
+            |       expression
+            ;
+
+ifBlock     :       statement*
             ;
 
 block       :       BEGIN statement* algorithmReturn? END
@@ -64,11 +75,32 @@ atomSign
     | DIV
     ;
 
+comparisonSign
+    : EQ
+    | NE
+    | GT
+    | LT
+    | GE
+    | LE
+    ;
+
 ALG         :       '\u0430\u043b\u0433'             ;                               // алг
 ARG         :       '\u0430\u0440\u0433'             ;                               // арг
 BEGIN       :       '\u043d\u0430\u0447'             ;                               // нач
 END         :       '\u043a\u043e\u043d'             ;                               // кон
 VAL         :       '\u0437\u043d\u0430\u0447'       ;                               // знач
+IF          :       '\u0435\u0441\u043b\u0438'       ;                               // если
+THEN        :       '\u0442\u043e'                   ;                               // то
+ALL         :       '\u0432\u0441\u0435'                                             // все
+            |       '\u0432\u0441\u0451'                                             // всё
+            ;
+
+EQ          :       '='                              ;
+NE          :       '<>'                             ;
+GT          :       '>'                              ;
+LT          :       '<'                              ;
+GE          :       '>='                             ;
+LE          :       '<='                             ;
 
 TYPE        :       '\u0446\u0435\u043b'                                             // цел
             |       '\u0432\u0435\u0449'                                             // вещ

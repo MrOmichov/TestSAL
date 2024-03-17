@@ -11,15 +11,17 @@ import java.util.Map;
 
 public class AlgorithmBlockVisitor extends salBaseVisitor<Instruction> {
     private final Map<String, Variable> memory;
+    private final Algorithm algorithm;
     private final VarDeclarationVisitor varDeclarationVisitor;
-    private final AssignmentVisitor assignmentVisitor;
-    private final PrintVisitor printVisitor;
-    private final AlgorithmCallVisitor algorithmCallVisitor;
-    private final AlgorithmReturnVisitor algorithmReturnVisitor;
-    private final List<Algorithm> algorithms;
+    private AssignmentVisitor assignmentVisitor;
+    private PrintVisitor printVisitor;
+    private AlgorithmCallVisitor algorithmCallVisitor;
+    private AlgorithmReturnVisitor algorithmReturnVisitor;
+    private List<Algorithm> algorithms;
 
     public AlgorithmBlockVisitor(Algorithm algorithm, List<Algorithm> algorithms) {
         this.memory = algorithm.getMemory();
+        this.algorithm = algorithm;
         this.varDeclarationVisitor = new VarDeclarationVisitor(memory, algorithm, algorithms);
         this.assignmentVisitor = new AssignmentVisitor(memory, algorithm, algorithms);
         this.printVisitor = new PrintVisitor(memory);
@@ -46,6 +48,11 @@ public class AlgorithmBlockVisitor extends salBaseVisitor<Instruction> {
     @Override
     public Instruction visitAlgorithmCall(salParser.AlgorithmCallContext ctx) {
         return algorithmCallVisitor.visitAlgorithmCall(ctx);
+    }
+
+    @Override
+    public Instruction visitIfStatement(salParser.IfStatementContext ctx) {
+        return new IfStatementVisitor(memory, algorithm, algorithms).visitIfStatement(ctx);
     }
 
     @Override

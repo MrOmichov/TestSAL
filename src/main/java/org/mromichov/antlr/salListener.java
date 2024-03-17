@@ -78,6 +78,36 @@ public interface salListener extends ParseTreeListener {
 	 */
 	void exitStatement(salParser.StatementContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link salParser#ifStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterIfStatement(salParser.IfStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link salParser#ifStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitIfStatement(salParser.IfStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link salParser#condition}.
+	 * @param ctx the parse tree
+	 */
+	void enterCondition(salParser.ConditionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link salParser#condition}.
+	 * @param ctx the parse tree
+	 */
+	void exitCondition(salParser.ConditionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link salParser#ifBlock}.
+	 * @param ctx the parse tree
+	 */
+	void enterIfBlock(salParser.IfBlockContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link salParser#ifBlock}.
+	 * @param ctx the parse tree
+	 */
+	void exitIfBlock(salParser.IfBlockContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link salParser#block}.
 	 * @param ctx the parse tree
 	 */
@@ -269,4 +299,14 @@ public interface salListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAtomSign(salParser.AtomSignContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link salParser#comparisonSign}.
+	 * @param ctx the parse tree
+	 */
+	void enterComparisonSign(salParser.ComparisonSignContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link salParser#comparisonSign}.
+	 * @param ctx the parse tree
+	 */
+	void exitComparisonSign(salParser.ComparisonSignContext ctx);
 }

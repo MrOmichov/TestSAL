@@ -44,7 +44,7 @@ public class VarDeclarationVisitor extends salBaseVisitor<VarDeclaration> {
         }
         */
 
-        final int varIndex = memory.size();                            // Порядковый номер (индекс) переменной
+        final int varIndex = memory.size();                            // Порядковый номер (индекс) переменной TODO сделать нумерацию для main-метода с 1, так как 0 занимает String[] args ([Ljava/lang/String;)
         //final String varTextValue = varValue.getText();              // Значение переменной в текстовом представлении
         Variable var = new Variable(varIndex, varType, varValue, varName.getText());
         memory.put(varName.getText(), var);
