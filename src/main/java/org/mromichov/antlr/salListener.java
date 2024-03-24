@@ -88,6 +88,16 @@ public interface salListener extends ParseTreeListener {
 	 */
 	void exitIfStatement(salParser.IfStatementContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link salParser#elseStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterElseStatement(salParser.ElseStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link salParser#elseStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitElseStatement(salParser.ElseStatementContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link salParser#condition}.
 	 * @param ctx the parse tree
 	 */

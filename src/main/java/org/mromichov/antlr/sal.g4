@@ -26,7 +26,12 @@ statement   :       variableDeclaration
             |       expression
             ;
 
-ifStatement :       IF condition THEN ifBlock ALL    ;
+ifStatement :       IF condition THEN ifBlock elseStatement? ALL
+            ;
+
+elseStatement
+            :       ELSE ifBlock
+            ;
 
 condition
             :       expression comparisonSign expression
@@ -89,8 +94,10 @@ ARG         :       '\u0430\u0440\u0433'             ;                          
 BEGIN       :       '\u043d\u0430\u0447'             ;                               // нач
 END         :       '\u043a\u043e\u043d'             ;                               // кон
 VAL         :       '\u0437\u043d\u0430\u0447'       ;                               // знач
+
 IF          :       '\u0435\u0441\u043b\u0438'       ;                               // если
 THEN        :       '\u0442\u043e'                   ;                               // то
+ELSE        :       '\u0438\u043d\u0430\u0447\u0435' ;                               // иначе
 ALL         :       '\u0432\u0441\u0435'                                             // все
             |       '\u0432\u0441\u0451'                                             // всё
             ;
@@ -111,7 +118,7 @@ TYPE        :       '\u0446\u0435\u043b'                                        
 
 PRINT       :       '\u0432\u044b\u0432\u043e\u0434' ;                               // вывод
 NEXTLINE    :       '\u043d\u0441' ;                                                 // нс — перевод каретки на новую строку
-ID          :       [\u0430-\u044f\u0410-\u042f_][\u0430-\u044f\u0410-\u042f0-9_]* ; // [а-яА-Я_][а-яА-Я0-9_]*
+ID          :       [\u0430-\u044f\u0410-\u042fa-zA-Z_][\u0430-\u044f\u0410-\u042fa-zA-Z0-9_]* ; // [а-яА-Я_][а-яА-Я0-9_]*
 ASSIGN      :       ':='                             ;
 LPAREN      :       '('                              ;
 RPAREN      :       ')'                              ;
