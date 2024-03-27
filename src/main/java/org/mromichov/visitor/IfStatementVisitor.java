@@ -28,8 +28,13 @@ public class IfStatementVisitor extends salBaseVisitor<IfStatement> {
         if (ctx.condition().comparisonSign() == null) comparisonSign = null;
         else comparisonSign = ctx.condition().comparisonSign().getText();
         IfStatement ifStatement = new IfStatement(ctx.condition().expression(), comparisonSign, memory, currentAlgorithm, algorithms);
+
         for (salParser.StatementContext statement : ctx.ifBlock().statement()) {
-            ifStatement.addInstruction(blockVisitor.visit(statement));
+            ifStatement.addIfInstruction(blockVisitor.visit(statement));
+        }
+        if (ctx.elseStatement() != null) {
+            for (salParser.StatementContext statement : ctx.elseStatement().ifBlock().statement())
+                ifStatement.addElseInstruction(blockVisitor.visit(statement));
         }
         return ifStatement;
     }
