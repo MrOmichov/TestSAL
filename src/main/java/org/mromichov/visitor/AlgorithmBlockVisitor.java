@@ -13,10 +13,11 @@ public class AlgorithmBlockVisitor extends salBaseVisitor<Instruction> {
     private final Map<String, Variable> memory;
     private final Algorithm algorithm;
     private final VarDeclarationVisitor varDeclarationVisitor;
-    private AssignmentVisitor assignmentVisitor;
+    private final AssignmentVisitor assignmentVisitor;
     private PrintVisitor printVisitor;
     private AlgorithmCallVisitor algorithmCallVisitor;
     private AlgorithmReturnVisitor algorithmReturnVisitor;
+    private LoopVisitor loopVisitor;
     private List<Algorithm> algorithms;
 
     public AlgorithmBlockVisitor(Algorithm algorithm, List<Algorithm> algorithms) {
@@ -27,6 +28,7 @@ public class AlgorithmBlockVisitor extends salBaseVisitor<Instruction> {
         this.printVisitor = new PrintVisitor(memory);
         this.algorithmCallVisitor = new AlgorithmCallVisitor(algorithm, algorithms);
         this.algorithmReturnVisitor = new AlgorithmReturnVisitor(algorithm.getReturnType(), memory, algorithm, algorithms);
+        this.loopVisitor = new LoopVisitor(memory, algorithm, algorithms);
         this.algorithms = algorithms;
     }
 
@@ -58,5 +60,10 @@ public class AlgorithmBlockVisitor extends salBaseVisitor<Instruction> {
     @Override
     public Instruction visitAlgorithmReturn(salParser.AlgorithmReturnContext ctx) {
         return algorithmReturnVisitor.visitAlgorithmReturn(ctx);
+    }
+
+    @Override
+    public Instruction visitLoop(salParser.LoopContext ctx) {
+        return loopVisitor.visit(ctx);
     }
 }

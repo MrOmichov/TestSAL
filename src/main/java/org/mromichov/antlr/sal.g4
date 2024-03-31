@@ -24,6 +24,27 @@ statement   :       variableDeclaration
             |       print
             |       ifStatement
             |       expression
+            |       loop
+            ;
+
+loop        :       preconditionLoop
+            |       postconditionLoop
+            |       forLoop
+            |       nTimesLoop
+            ;
+
+preconditionLoop
+            :       BEGINCYCLE WHILE condition statement* ENDCYCLE
+            ;
+
+postconditionLoop
+            :       BEGINCYCLE statement* ENDCYCLE PRI condition
+            ;
+
+forLoop     :       BEGINCYCLE FOR statement* ENDCYCLE // TODO
+            ;
+
+nTimesLoop  :       BEGINCYCLE NUMBER RAZ statement* ENDCYCLE
             ;
 
 ifStatement :       IF condition THEN ifBlock elseStatement? ALL
@@ -101,6 +122,13 @@ ELSE        :       '\u0438\u043d\u0430\u0447\u0435' ;                          
 ALL         :       '\u0432\u0441\u0435'                                             // все
             |       '\u0432\u0441\u0451'                                             // всё
             ;
+
+BEGINCYCLE  :       '\u043d\u0446'                   ;                               // нц
+ENDCYCLE    :       '\u043a\u0446'                   ;                               // кц
+WHILE       :       '\u043f\u043e\u043a\u0430'       ;                               // пока
+PRI         :       '\u043f\u0440\u0438'             ;                               // при
+FOR         :       '\u0434\u043b\u044f'             ;                               // для
+RAZ         :       '\u0440\u0430\u0437'             ;                               // раз
 
 EQ          :       '='                              ;
 NE          :       '<>'                             ;

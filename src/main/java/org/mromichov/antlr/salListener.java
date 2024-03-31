@@ -78,6 +78,56 @@ public interface salListener extends ParseTreeListener {
 	 */
 	void exitStatement(salParser.StatementContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link salParser#loop}.
+	 * @param ctx the parse tree
+	 */
+	void enterLoop(salParser.LoopContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link salParser#loop}.
+	 * @param ctx the parse tree
+	 */
+	void exitLoop(salParser.LoopContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link salParser#preconditionLoop}.
+	 * @param ctx the parse tree
+	 */
+	void enterPreconditionLoop(salParser.PreconditionLoopContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link salParser#preconditionLoop}.
+	 * @param ctx the parse tree
+	 */
+	void exitPreconditionLoop(salParser.PreconditionLoopContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link salParser#postconditionLoop}.
+	 * @param ctx the parse tree
+	 */
+	void enterPostconditionLoop(salParser.PostconditionLoopContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link salParser#postconditionLoop}.
+	 * @param ctx the parse tree
+	 */
+	void exitPostconditionLoop(salParser.PostconditionLoopContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link salParser#forLoop}.
+	 * @param ctx the parse tree
+	 */
+	void enterForLoop(salParser.ForLoopContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link salParser#forLoop}.
+	 * @param ctx the parse tree
+	 */
+	void exitForLoop(salParser.ForLoopContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link salParser#nTimesLoop}.
+	 * @param ctx the parse tree
+	 */
+	void enterNTimesLoop(salParser.NTimesLoopContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link salParser#nTimesLoop}.
+	 * @param ctx the parse tree
+	 */
+	void exitNTimesLoop(salParser.NTimesLoopContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link salParser#ifStatement}.
 	 * @param ctx the parse tree
 	 */

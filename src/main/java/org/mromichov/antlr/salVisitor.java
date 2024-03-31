@@ -53,6 +53,36 @@ public interface salVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStatement(salParser.StatementContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link salParser#loop}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLoop(salParser.LoopContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#preconditionLoop}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPreconditionLoop(salParser.PreconditionLoopContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#postconditionLoop}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPostconditionLoop(salParser.PostconditionLoopContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#forLoop}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitForLoop(salParser.ForLoopContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#nTimesLoop}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNTimesLoop(salParser.NTimesLoopContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link salParser#ifStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
