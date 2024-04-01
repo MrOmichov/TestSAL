@@ -1,13 +1,11 @@
 package org.mromichov.bytecodegen;
 
 import org.mromichov.bytecodegen.instructions.Instruction;
-import org.mromichov.bytecodegen.instructions.VarDeclaration;
 import org.mromichov.parsing.domain.Algorithm;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 
 import java.util.List;
-import java.util.Queue;
 
 import static org.objectweb.asm.Opcodes.*;
 

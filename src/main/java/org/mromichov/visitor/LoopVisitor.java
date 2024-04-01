@@ -33,11 +33,11 @@ public class LoopVisitor extends salBaseVisitor<Loop> {
 
     @Override
     public Loop visitForLoop(salParser.ForLoopContext ctx) {
-        return super.visitForLoop(ctx);
+        return new ForLoopVisitor(memory, currentAlgorithm, algorithms).visitForLoop(ctx);
     }
 
     @Override
     public Loop visitNTimesLoop(salParser.NTimesLoopContext ctx) {
-        return super.visitNTimesLoop(ctx);
+        return new NTimesLoopVisitor(memory, currentAlgorithm, algorithms).visitNTimesLoop(ctx);
     }
 }

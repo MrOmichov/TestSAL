@@ -41,10 +41,10 @@ postconditionLoop
             :       BEGINCYCLE statement* ENDCYCLE PRI condition
             ;
 
-forLoop     :       BEGINCYCLE FOR statement* ENDCYCLE // TODO
+forLoop     :       BEGINCYCLE FOR ID FROM e1=expression TO e2=expression (STEP e3=expression)? statement* ENDCYCLE
             ;
 
-nTimesLoop  :       BEGINCYCLE NUMBER RAZ statement* ENDCYCLE
+nTimesLoop  :       BEGINCYCLE expression RAZ statement* ENDCYCLE
             ;
 
 ifStatement :       IF condition THEN ifBlock elseStatement? ALL
@@ -129,6 +129,9 @@ WHILE       :       '\u043f\u043e\u043a\u0430'       ;                          
 PRI         :       '\u043f\u0440\u0438'             ;                               // при
 FOR         :       '\u0434\u043b\u044f'             ;                               // для
 RAZ         :       '\u0440\u0430\u0437'             ;                               // раз
+FROM        :       '\u043e\u0442'                   ;                               // от
+TO          :       '\u0434\u043e'                   ;                               // до
+STEP        :       '\u0448\u0430\u0433'             ;                               // шаг
 
 EQ          :       '='                              ;
 NE          :       '<>'                             ;
@@ -154,7 +157,7 @@ PLUS        :       '+' ;
 MINUS       :       '-' ;
 TIMES       :       '*' ;
 DIV         :       '/' ;
-NUMBER      :       [0-9]+ ; //TODO сделать отрицательные числа NUMBER и DNUMBER
+NUMBER      :       MINUS? [0-9]+ ; //TODO сделать отрицательные числа NUMBER и DNUMBER
 DNUMBER     :       [0-9]+ '.' [0-9]+;
 STRING      :       '"'~('\r' | '\n' | '"')*'"' ;
 WS          :       [ \n\r\t]+ -> skip ;

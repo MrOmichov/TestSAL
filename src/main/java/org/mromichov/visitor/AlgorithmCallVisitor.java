@@ -35,7 +35,7 @@ public class AlgorithmCallVisitor extends salBaseVisitor<AlgorithmCall> {
             //TODO argument expressions evaluations
             for (salParser.ArgumentContext argumentCtx : argumentsCtx) {
                 argumentsNames.add(argumentCtx.getText());
-                System.out.println(argumentCtx.getText());
+            //    System.out.println(argumentCtx.getText());
             }
             for (String argument : argumentsNames) {
                 argument = StringUtils.replaceEach(argument, new String[]{")"}, new String[]{""});

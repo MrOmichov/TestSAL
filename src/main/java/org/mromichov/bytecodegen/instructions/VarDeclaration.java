@@ -28,11 +28,20 @@ public class VarDeclaration implements Instruction {
         this.algorithms = algorithms;
     }
 
+    public VarDeclaration(Variable var, Map<String, Variable> memory, Algorithm currentAlgorithm, List<Algorithm> algorithms) {
+        this.var = var;
+        this.value = null;
+        this.memory = new HashMap<>(memory);
+        this.currentAlgorithm = currentAlgorithm;
+        this.algorithms = algorithms;
+    }
+
     @Override
     public void apply(MethodVisitor mv) {
         ExprListener exprListener = new ExprListener(mv, var.getType(), memory, currentAlgorithm, algorithms);
         final Type type = var.getType();
-        exprListener.exitExpression(value);
+        if (value != null) exprListener.exitExpression(value);
+        else mv.visitInsn(ICONST_1);
         mv.visitVarInsn(type.getStore(), var.getIndex());
     }
 }
