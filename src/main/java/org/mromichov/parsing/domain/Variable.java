@@ -1,4 +1,4 @@
-package org.mromichov.domain;
+package org.mromichov.parsing.domain;
 
 import org.mromichov.type.Type;
 
