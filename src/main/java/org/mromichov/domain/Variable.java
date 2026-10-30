@@ -1,25 +1,49 @@
 package org.mromichov.domain;
 
-public class Variable {
-    private int id;
-    private int type;
-    private String value;
+import org.mromichov.type.Type;
 
-    public Variable(int id, int type, String value) {
-        this.id = id;
+public class Variable {
+    private int index;
+    private Type type;
+    private String value;
+    private String name;
+
+    public Variable(int index, Type type, String value, String name) {
+        this.index = index;
         this.type = type;
         this.value = value;
+        this.name = name;
     }
 
-    public int getId() {
-        return id;
+    public int getIndex() {
+        return index;
     }
 
-    public int getType() {
+    public Type getType() {
         return type;
     }
 
     public String getValue() {
         return value;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

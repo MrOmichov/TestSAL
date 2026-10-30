@@ -35,17 +35,89 @@ public interface salVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAlgorithmName(salParser.AlgorithmNameContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link salParser#algorithmArgument}.
+	 * Visit a parse tree produced by {@link salParser#parameterList}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAlgorithmArgument(salParser.AlgorithmArgumentContext ctx);
+	T visitParameterList(salParser.ParameterListContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link salParser#blockStatement}.
+	 * Visit a parse tree produced by {@link salParser#parameter}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBlockStatement(salParser.BlockStatementContext ctx);
+	T visitParameter(salParser.ParameterContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStatement(salParser.StatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#loop}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLoop(salParser.LoopContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#preconditionLoop}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPreconditionLoop(salParser.PreconditionLoopContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#postconditionLoop}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPostconditionLoop(salParser.PostconditionLoopContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#forLoop}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitForLoop(salParser.ForLoopContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#nTimesLoop}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNTimesLoop(salParser.NTimesLoopContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#ifStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIfStatement(salParser.IfStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#elseStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitElseStatement(salParser.ElseStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#condition}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCondition(salParser.ConditionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#ifBlock}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIfBlock(salParser.IfBlockContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#block}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBlock(salParser.BlockContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#algorithmReturn}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAlgorithmReturn(salParser.AlgorithmReturnContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link salParser#variableDeclaration}.
 	 * @param ctx the parse tree
@@ -53,11 +125,17 @@ public interface salVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitVariableDeclaration(salParser.VariableDeclarationContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link salParser#printStatement}.
+	 * Visit a parse tree produced by {@link salParser#assignment}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPrintStatement(salParser.PrintStatementContext ctx);
+	T visitAssignment(salParser.AssignmentContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#print}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrint(salParser.PrintContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link salParser#algorithmCall}.
 	 * @param ctx the parse tree
@@ -65,76 +143,87 @@ public interface salVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAlgorithmCall(salParser.AlgorithmCallContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link salParser#expressionList}.
+	 * Visit a parse tree produced by {@link salParser#argumentList}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpressionList(salParser.ExpressionListContext ctx);
+	T visitArgumentList(salParser.ArgumentListContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ADD}
-	 * labeled alternative in {@link salParser#expression}.
+	 * Visit a parse tree produced by {@link salParser#argument}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitADD(salParser.ADDContext ctx);
+	T visitArgument(salParser.ArgumentContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code SUBSTRACT}
-	 * labeled alternative in {@link salParser#expression}.
+	 * Visit a parse tree produced by {@link salParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSUBSTRACT(salParser.SUBSTRACTContext ctx);
+	T visitExpression(salParser.ExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code FUNCALL}
-	 * labeled alternative in {@link salParser#expression}.
+	 * Visit a parse tree produced by {@link salParser#term}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFUNCALL(salParser.FUNCALLContext ctx);
+	T visitTerm(salParser.TermContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code MULTIPLY}
-	 * labeled alternative in {@link salParser#expression}.
+	 * Visit a parse tree produced by the {@code Algorithm_Call}
+	 * labeled alternative in {@link salParser#atom}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitMULTIPLY(salParser.MULTIPLYContext ctx);
+	T visitAlgorithm_Call(salParser.Algorithm_CallContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code VALUE}
-	 * labeled alternative in {@link salParser#expression}.
+	 * Visit a parse tree produced by the {@code VariableReference}
+	 * labeled alternative in {@link salParser#atom}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitVALUE(salParser.VALUEContext ctx);
+	T visitVariableReference(salParser.VariableReferenceContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code VARREFERENCE}
-	 * labeled alternative in {@link salParser#expression}.
+	 * Visit a parse tree produced by the {@code Number}
+	 * labeled alternative in {@link salParser#atom}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitVARREFERENCE(salParser.VARREFERENCEContext ctx);
+	T visitNumber(salParser.NumberContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code DIVIDE}
-	 * labeled alternative in {@link salParser#expression}.
+	 * Visit a parse tree produced by the {@code DoubleNumber}
+	 * labeled alternative in {@link salParser#atom}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDIVIDE(salParser.DIVIDEContext ctx);
+	T visitDoubleNumber(salParser.DoubleNumberContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link salParser#name}.
+	 * Visit a parse tree produced by the {@code String}
+	 * labeled alternative in {@link salParser#atom}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitName(salParser.NameContext ctx);
+	T visitString(salParser.StringContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link salParser#varReference}.
+	 * Visit a parse tree produced by the {@code ParenExpression}
+	 * labeled alternative in {@link salParser#atom}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitVarReference(salParser.VarReferenceContext ctx);
+	T visitParenExpression(salParser.ParenExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link salParser#value}.
+	 * Visit a parse tree produced by {@link salParser#termSign}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitValue(salParser.ValueContext ctx);
+	T visitTermSign(salParser.TermSignContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#atomSign}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAtomSign(salParser.AtomSignContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link salParser#comparisonSign}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitComparisonSign(salParser.ComparisonSignContext ctx);
 }

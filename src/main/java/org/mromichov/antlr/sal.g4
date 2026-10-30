@@ -1,50 +1,163 @@
 grammar sal;
 
-start                  :       algorithm* EOF                     ;
-algorithm              :       algorithmDeclaration '\u043d\u0430\u0447' blockStatement* '\u043a\u043e\u043d'     ; // нач кон
-algorithmDeclaration   :       '\u0430\u043b\u0433' TYPE? algorithmName* ('(' algorithmArgument (',' algorithmArgument)* ')')* ; // алг
-algorithmName          :       ID ;
-algorithmArgument      :       '\u0430\u0440\u0433' TYPE ID       ; // арг
-blockStatement         :       variableDeclaration
-                       |       printStatement
-                       |       algorithmCall
-                       ;
-variableDeclaration    :       TYPE name ASSIGN expression          ;
-printStatement         :       PRINT (NEXTLINE | expression) (',' (NEXTLINE | expression))*          ;
-algorithmCall          :       algorithmName ('(' expressionList ')')*        ;
+start       :       algorithm* EOF;
 
-expressionList : expression (',' expression)* ;
-expression :
-            varReference #VARREFERENCE
-           | value        #VALUE
-           | algorithmCall #FUNCALL
-           |  '('expression '*' expression')' #MULTIPLY
-           | expression '*' expression  #MULTIPLY
-           | '(' expression '/' expression ')' #DIVIDE
-           | expression '/' expression #DIVIDE
-           | '(' expression '+' expression ')' #ADD
-           | expression '+' expression #ADD
-           | '(' expression '-' expression ')' #SUBSTRACT
-           | expression '-' expression #SUBSTRACT
-           ;
-name       : ID ;
-varReference : ID ;
-value : NUMBER
-      | STRING ;
+algorithm   :       algorithmDeclaration block ;
 
+algorithmDeclaration
+            :       ALG (TYPE)? algorithmName '('? ARG? parameterList? ')'?
+            ;
 
+algorithmName
+            :       ID
+            ;
+
+parameterList
+            :        parameter (',' parameter)*
+            ;
+
+parameter   :       TYPE ID
+            ;
+
+statement   :       variableDeclaration
+            |       assignment
+            |       print
+            |       ifStatement
+            |       expression
+            |       loop
+            ;
+
+loop        :       preconditionLoop
+            |       postconditionLoop
+            |       forLoop
+            |       nTimesLoop
+            ;
+
+preconditionLoop
+            :       BEGINCYCLE WHILE condition statement* ENDCYCLE
+            ;
+
+postconditionLoop
+            :       BEGINCYCLE statement* ENDCYCLE PRI condition
+            ;
+
+forLoop     :       BEGINCYCLE FOR ID FROM e1=expression TO e2=expression (STEP e3=expression)? statement* ENDCYCLE
+            ;
+
+nTimesLoop  :       BEGINCYCLE expression RAZ statement* ENDCYCLE
+            ;
+
+ifStatement :       IF condition THEN ifBlock elseStatement? ALL
+            ;
+
+elseStatement
+            :       ELSE ifBlock
+            ;
+
+condition
+            :       expression comparisonSign expression
+            |       expression
+            ;
+
+ifBlock     :       statement*
+            ;
+
+block       :       BEGIN statement* algorithmReturn? END
+            ;
+
+algorithmReturn:    VAL ASSIGN expression            ;
+variableDeclaration
+            :       TYPE ID ASSIGN expression        ;
+assignment  :       ID ASSIGN expression             ;
+print       :       PRINT ID (',' NEXTLINE)*         ;
+algorithmCall
+            :       algorithmName LPAREN argumentList? RPAREN
+            ;
+argumentList:       argument (',' argument)*         ;
+argument    :       expression                       ;
+
+expression
+    : t1=term (termSign t2=term)*
+    ;
+
+term
+    : a1=atom (atomSign a2=atom)*
+    ;
+atom        :       algorithmCall  #Algorithm_Call
+            |       ID #VariableReference
+            |       NUMBER #Number
+            |       DNUMBER #DoubleNumber
+            |       STRING #String
+            |       LPAREN expression RPAREN #ParenExpression
+            ;
+
+termSign
+    : PLUS
+    | MINUS
+    ;
+
+atomSign
+    : TIMES
+    | DIV
+    ;
+
+comparisonSign
+    : EQ
+    | NE
+    | GT
+    | LT
+    | GE
+    | LE
+    ;
+
+ALG         :       '\u0430\u043b\u0433'             ;                               // алг
+ARG         :       '\u0430\u0440\u0433'             ;                               // арг
+BEGIN       :       '\u043d\u0430\u0447'             ;                               // нач
+END         :       '\u043a\u043e\u043d'             ;                               // кон
+VAL         :       '\u0437\u043d\u0430\u0447'       ;                               // знач
+
+IF          :       '\u0435\u0441\u043b\u0438'       ;                               // если
+THEN        :       '\u0442\u043e'                   ;                               // то
+ELSE        :       '\u0438\u043d\u0430\u0447\u0435' ;                               // иначе
+ALL         :       '\u0432\u0441\u0435'                                             // все
+            |       '\u0432\u0441\u0451'                                             // всё
+            ;
+
+BEGINCYCLE  :       '\u043d\u0446'                   ;                               // нц
+ENDCYCLE    :       '\u043a\u0446'                   ;                               // кц
+WHILE       :       '\u043f\u043e\u043a\u0430'       ;                               // пока
+PRI         :       '\u043f\u0440\u0438'             ;                               // при
+FOR         :       '\u0434\u043b\u044f'             ;                               // для
+RAZ         :       '\u0440\u0430\u0437'             ;                               // раз
+FROM        :       '\u043e\u0442'                   ;                               // от
+TO          :       '\u0434\u043e'                   ;                               // до
+STEP        :       '\u0448\u0430\u0433'             ;                               // шаг
+
+EQ          :       '='                              ;
+NE          :       '<>'                             ;
+GT          :       '>'                              ;
+LT          :       '<'                              ;
+GE          :       '>='                             ;
+LE          :       '<='                             ;
 
 TYPE        :       '\u0446\u0435\u043b'                                             // цел
             |       '\u0432\u0435\u0449'                                             // вещ
-            |       '\u043b\u043e\u0433'                                             // лог
             |       '\u0441\u0438\u043c'                                             // сим
             |       '\u043b\u0438\u0442'                                             // лит
+            |       '\u043b\u043e\u0433'                                             // лог
             ;
+
 PRINT       :       '\u0432\u044b\u0432\u043e\u0434' ;                               // вывод
 NEXTLINE    :       '\u043d\u0441' ;                                                 // нс — перевод каретки на новую строку
-ID          :       [\u0430-\u044f\u0410-\u042f_][\u0430-\u044f\u0410-\u042f0-9_]* ; // [а-яА-Я_][а-яА-Я0-9_]
-ASSIGN      :       ':='
-            ;
-NUMBER      :       [0-9]+ ;
+ID          :       [\u0430-\u044f\u0410-\u042fa-zA-Z_][\u0430-\u044f\u0410-\u042fa-zA-Z0-9_]* ; // [а-яА-Я_][а-яА-Я0-9_]*
+ASSIGN      :       ':='                             ;
+LPAREN      :       '('                              ;
+RPAREN      :       ')'                              ;
+PLUS        :       '+' ;
+MINUS       :       '-' ;
+TIMES       :       '*' ;
+DIV         :       '/' ;
+NUMBER      :       MINUS? [0-9]+ ; //TODO сделать отрицательные числа NUMBER и DNUMBER
+DNUMBER     :       [0-9]+ '.' [0-9]+;
 STRING      :       '"'~('\r' | '\n' | '"')*'"' ;
 WS          :       [ \n\r\t]+ -> skip ;

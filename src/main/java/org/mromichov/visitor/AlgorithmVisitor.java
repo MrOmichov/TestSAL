@@ -1,57 +1,51 @@
 package org.mromichov.visitor;
 
-import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.mromichov.antlr.salBaseVisitor;
 import org.mromichov.antlr.salParser;
-import org.mromichov.domain.Algorithm;
-import org.mromichov.domain.expression.Parameter;
-import org.mromichov.domain.scope.LocalVariable;
-import org.mromichov.domain.scope.Scope;
-import org.mromichov.domain.statement.Statement;
-import org.mromichov.domain.type.Type;
-import org.mromichov.util.TypeChecker;
+import org.mromichov.parsing.domain.Algorithm;
+import org.mromichov.parsing.domain.Parameter;
+import org.mromichov.parsing.domain.Variable;
+import org.mromichov.type.Type;
+import org.mromichov.util.NameTransliteration;
+import org.mromichov.util.TypeResolver;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 public class AlgorithmVisitor extends salBaseVisitor<Algorithm> {
-    private Scope scope;
-    public AlgorithmVisitor(Scope scope) {
-        this.scope = new Scope(scope);
+    private final Map<String, Variable> memory;
+    private final String className;
+
+    public AlgorithmVisitor(Map<String, Variable> memory, String className) {
+        this.memory = memory;
+        this.className = className;
     }
 
     @Override
-    public Algorithm visitAlgorithm(@NotNull salParser.AlgorithmContext ctx) {
-        String name = getName(ctx);
-        Type returnType = getReturnType(ctx);
-        List<Parameter> arguments = getArguments(ctx);
-        List<Statement> instructions = getStatements(ctx);
-        return new Algorithm(scope,name,returnType,arguments,instructions);
+    public Algorithm visitAlgorithm(salParser.AlgorithmContext ctx) {
+        TerminalNode nameSymbol = ctx.algorithmDeclaration().algorithmName().ID();
+        String name = ctx.algorithmDeclaration().algorithmName().getText();
+        String transliteratedName = NameTransliteration.transliterate(name);
+        Map<String, Variable> memory = new HashMap<>(this.memory);
+        Type returnType = TypeResolver.getType(ctx.algorithmDeclaration().TYPE());
+        salParser.BlockContext block = ctx.block();
+        if (ctx.algorithmDeclaration().parameterList() != null) {
+            List<Parameter> parameters = ctx.algorithmDeclaration().parameterList().accept(new ParameterListVisitor(memory));
+            logAlgorithmDeclarationFound(nameSymbol, name, transliteratedName, className, returnType);
+            return new Algorithm(name, transliteratedName, className, parameters, memory, returnType, block);
+        } else {
+            logAlgorithmDeclarationFound(nameSymbol, name, transliteratedName, className, returnType);
+            return new Algorithm(name, transliteratedName, className, Collections.emptyList(), memory, returnType, block);
+        }
     }
 
-    private String getName(salParser.AlgorithmContext algorithmDeclarationContext) {
-        return algorithmDeclarationContext.algorithmDeclaration().algorithmName(0).getText();
-    }
-
-    private Type getReturnType(salParser.AlgorithmContext algorithmDeclarationContext) {
-        TerminalNode type = algorithmDeclarationContext.algorithmDeclaration().TYPE();
-        return TypeChecker.getFromTypeName(type);
-    }
-
-    private List<Parameter> getArguments(salParser.AlgorithmContext functionDeclarationContext) {
-        List<salParser.AlgorithmArgumentContext> argsCtx = functionDeclarationContext.algorithmDeclaration().algorithmArgument();
-        List<Parameter> parameters = argsCtx.stream()
-                .map(paramCtx -> new Parameter(paramCtx.ID().getText(), TypeChecker.getFromTypeName(paramCtx.TYPE())))
-                .peek(param -> scope.addLocalVariable(new LocalVariable(param.getName(), param.getType())))
-                .collect(Collectors.toList());
-        return parameters;
-    }
-
-    private List<Statement> getStatements(@NotNull salParser.AlgorithmContext ctx) {
-        StatementVisitor statementVisitor = new StatementVisitor(scope);
-        return ctx.blockStatement().stream()
-                .map(block -> block.accept(statementVisitor))
-                .collect(Collectors.toList());
+    private void logAlgorithmDeclarationFound(TerminalNode nameSymbol, String name, String transliteratedName, String className, Type returnType) {
+        final int line = nameSymbol.getSymbol().getLine();
+        StringBuilder format = new StringBuilder("Успех: алгоритм с названием '%s' с возвращаемым типом '%s' был объявлен в строке '%s'.\n");
+        format.append("Транслитерированное имя: '%s'. Имя класса-владельца: '%s'.\n");
+        System.out.printf(format.toString(), name, returnType.getTextRepresentation(), line, transliteratedName, className);
     }
 }

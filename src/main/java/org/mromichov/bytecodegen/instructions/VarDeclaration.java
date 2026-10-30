@@ -1,35 +1,47 @@
 package org.mromichov.bytecodegen.instructions;
 
-import org.mromichov.domain.Variable;
+import org.mromichov.antlr.salParser;
+import org.mromichov.expression.ExprListener;
+import org.mromichov.parsing.domain.Algorithm;
+import org.mromichov.parsing.domain.Variable;
+import org.mromichov.type.Type;
 import org.objectweb.asm.MethodVisitor;
 
-import static org.mromichov.antlr.salLexer.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import static org.objectweb.asm.Opcodes.*;
 
 public class VarDeclaration implements Instruction {
 
-    Variable var;
-    public VarDeclaration(Variable var) {
+    private final Variable var;
+    private final salParser.ExpressionContext value;
+    private final Map<String, Variable> memory;
+    private final Algorithm currentAlgorithm;
+    private final List<Algorithm> algorithms;
+    public VarDeclaration(Variable var, salParser.ExpressionContext expressionContext, Map<String, Variable> memory, Algorithm currentAlgorithm, List<Algorithm> algorithms) {
         this.var = var;
+        this.value = expressionContext;
+        this.memory = new HashMap<>(memory);
+        this.currentAlgorithm = currentAlgorithm;
+        this.algorithms = algorithms;
+    }
+
+    public VarDeclaration(Variable var, Map<String, Variable> memory, Algorithm currentAlgorithm, List<Algorithm> algorithms) {
+        this.var = var;
+        this.value = null;
+        this.memory = new HashMap<>(memory);
+        this.currentAlgorithm = currentAlgorithm;
+        this.algorithms = algorithms;
     }
 
     @Override
     public void apply(MethodVisitor mv) {
-        final int type = var.getType();
-        if (type == NUMBER) {
-            int val = Integer.parseInt(var.getValue());
-            if (val >= -1 && val <= 5) {
-                final int opcode = 3 + val; // ICONST_M1 = 2 ... ICONST_5 = 8 => команда = 3 + число
-                mv.visitInsn(opcode);
-            } else if (val >= Byte.MIN_VALUE && val <= Byte.MAX_VALUE) {
-                mv.visitIntInsn(BIPUSH, val);
-            } else if (val >= Short.MIN_VALUE && val <= Short.MAX_VALUE) {
-                mv.visitIntInsn(SIPUSH, val);
-            }
-            mv.visitVarInsn(ISTORE, var.getId());
-        } else if (type == STRING) {
-            mv.visitLdcInsn(var.getValue());
-            mv.visitVarInsn(ASTORE, var.getId());
-        }
+        ExprListener exprListener = new ExprListener(mv, var.getType(), memory, currentAlgorithm, algorithms);
+        final Type type = var.getType();
+        if (value != null) exprListener.exitExpression(value);
+        else mv.visitInsn(ICONST_1);
+        mv.visitVarInsn(type.getStore(), var.getIndex());
     }
 }
