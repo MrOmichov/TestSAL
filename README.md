@@ -68,3 +68,7 @@ mvn package
 Смешанные выражения и автоматические преобразования типов не поддерживаются. В выражениях можно использовать скобки. Вывод принимает переменную; `нс` добавляет перевод строки.
 
 Полная грамматика находится в `src/main/java/org/mromichov/antlr/sal.g4`.
+
+### Демонстрация
+
+https://drive.google.com/file/d/1_LJGvST6Tfh0kcMtRN1Vw0uM9wLu7EJi/view?usp=drive_link
